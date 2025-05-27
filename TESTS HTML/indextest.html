@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les ateliers d'Artemius - L'IA à la portée de tous</title>
+    <meta name="description" content="Les ateliers d'Artemius permettent aux étudiants d'apprendre à utiliser l'intelligence artificielle pour générer des chansons, des vidéos et créer un site web.">
+    <meta name="keywords" content="intelligence artificielle, cours IA, création de site, vidéo IA, musique IA, atelier IA Belgique">
+    <meta name="author" content="Artemius">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background-color: black;
+            color: #FFA500;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+            background-color: #008000;
+            color: #FFA500;
+            padding: 10px 0;
+            font-size: 18px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        .marquee {
+            display: inline-block;
+            animation: scrollText 10s linear infinite;
+        }
+        @keyframes scrollText {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        header {
+            padding: 100px 20px 20px;
+        }
+        h1 {
+            color: #008000;
+        }
+        h2 {
+            color: #FFA500;
+        }
+        .content, .presentation {
+            margin: 20px auto;
+            max-width: 800px;
+        }
+        .video iframe {
+            width: 100%;
+            max-width: 560px;
+            height: 315px;
+            border: 2px solid #FFA500;
+        }
+        .gallery {
+            margin-top: 30px;
+        }
+        .gallery h3 {
+            color: #008000;
+        }
+        .images {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .images img {
+            width: 200px;
+            border: 2px solid #FFA500;
+            transition: transform 0.3s ease-in-out;
+        }
+        .images img:hover {
+            transform: scale(1.2);
+        }
+        .presentation {
+            background-color: #222;
+            padding: 20px;
+            border-radius: 10px;
+            color: white;
+            box-shadow: 0 0 10px #FFA500;
+        }
+        .presentation h3 {
+            color: #FFA500;
+        }
+        .ateliers-image {
+            width: 100%;
+            max-width: 500px;
+            margin: 20px auto;
+            display: block;
+            border: 3px solid #FFA500;
+            border-radius: 10px;
+            box-shadow: 0 0 15px #FFA500;
+            transition: transform 0.3s ease-in-out;
+        }
+        .ateliers-image:hover {
+            transform: scale(1.1);
+        }
+        .download-btn {
+            display: block;
+            background-color: #008000;
+            color: white;
+            padding: 15px;
+            font-size: 18px;
+            border-radius: 10px;
+            width: fit-content;
+            margin: 20px auto;
+            text-decoration: none;
+            box-shadow: 0 0 10px #FFA500;
+            transition: transform 0.3s ease-in-out, background-color 0.3s;
+        }
+        .download-btn:hover {
+            background-color: #FFA500;
+            transform: scale(1.1);
+        }
+        .social-links {
+            margin-top: 20px;
+        }
+        .social-links a {
+            color: #FFA500;
+            font-size: 22px;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+        .social-links a:hover {
+            color: #008000;
+        }
+        .cta {
+            display: block;
+            background-color: #FFA500;
+            color: black;
+            padding: 15px;
+            font-size: 20px;
+            border-radius: 10px;
+            width: fit-content;
+            margin: 30px auto;
+            text-decoration: none;
+        }
+        .cta:hover {
+            background-color: #008000;
+            color: white;
+        }
+        footer {
+            background-color: #111;
+            color: #ccc;
+            padding: 15px;
+            font-size: 14px;
+            margin-top: 30px;
+        }
+        footer a {
+            color: #FFA500;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="marquee-container">
+        <div class="marquee">🎉 Les cours débutent le 1er juillet 2025 ! Inscrivez-vous dès maintenant ! 🎉</div>
+    </div>
+
+    <header>
+        <h1>Les ateliers d'Artemius</h1>
+        <h2>L'IA à la portée de tous</h2>
+    </header>
+
+    <section class="presentation">
+        <h3>🚀 Découvrez nos ateliers IA innovants !</h3>
+        <p>Passionné par la technologie et la créativité ? Nos ateliers sont conçus pour vous initier aux outils d’intelligence artificielle les plus modernes.</p>
+        <p>Grâce à nos formations, vous apprendrez à :</p>
+        <ul>
+            <li>🎵 **Composer une chanson assistée par IA** et explorer les possibilités infinies de la création musicale.</li>
+            <li>🎬 **Générer et éditer une vidéo** avec des outils IA révolutionnaires.</li>
+            <li>🌐 **Créer votre propre site web interactif**, comme celui-ci, en un rien de temps !</li>
+        </ul>
+        <p>Nos cours sont accessibles à tous, débutants comme initiés. Ne manquez pas cette opportunité de plonger dans l’univers fascinant de l’IA !</p>
+        <img src="images/ateliers.png" alt="Les Ateliers d'Artemius" class="ateliers-image">
+        <a href="Artemius.pdf" target="_blank" class="download-btn">📄 Télécharger le PDF du programme</a>
+        <div class="social-links">
+            <p>🌍 Suivez-nous sur :</p>
+            <a href="https://www.youtube.com/@LeaetArtemius" target="_blank"><i class="fab fa-youtube"></i> YouTube</a>
+            <a href="https://www.mixcloud.com/ArtemiusDySo/" target="_blank"><i class="fab fa-mixcloud"></i> Mixcloud</a>
+            <a href="https://www.soundcloud.com/ArtemiusDySo/" target="_blank"><i class="fab fa-soundcloud"></i> SoundCloud</a>
+        </div>
+        <a href="mailto:smartzik@gmail.com" class="cta">📩 Contactez-nous dès maintenant !</a>
+    </section>
+
+    <footer>
+        <p>© 2025 Les Ateliers d'Artemius | Tous droits réservés</p>
+        <p><a href="mentions-legales.html">Mentions légales</a> | <a href="mailto:smartzik@gmail.com">Contact</a></p>
+        <p>Ce site respecte la législation belge et protège vos données conformément au RGPD.</p>
+    </footer>
+
+</body>
