@@ -30,3 +30,34 @@ h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:500}h1{font-siz
 .visual-photo-shade{position:absolute;inset:0;background:linear-gradient(180deg,transparent 52%,rgba(5,7,10,.18) 70%,rgba(5,7,10,.72) 100%);pointer-events:none}
 .visual-photo-title{position:absolute;left:28px;right:28px;bottom:24px;font-family:Georgia,"Times New Roman",serif;font-size:clamp(1.35rem,3vw,2.25rem);letter-spacing:.08em;color:#fff;text-shadow:0 6px 24px rgba(0,0,0,.7)}
 @media(max-width:900px){.visual-photo-card{justify-self:start;max-width:680px}}
+
+/* Blended hero artwork — Artemius & Lea pages */
+.visual-photo-card{
+  background:transparent;
+  border-color:rgba(255,255,255,.035);
+  box-shadow:none;
+}
+.visual-photo-card img{
+  opacity:.66;
+  mix-blend-mode:screen;
+  filter:saturate(.92) contrast(1.02) brightness(.92);
+}
+.visual-photo-card .visual-photo-shade{
+  background:linear-gradient(180deg,rgba(5,7,10,.04) 0%,rgba(5,7,10,.02) 52%,rgba(5,7,10,.22) 100%);
+}
+.visual-photo-card .visual-photo-title{
+  color:rgba(255,255,255,.78);
+  text-shadow:0 3px 16px rgba(0,0,0,.55);
+}
+.visual-photo-soft img{
+  opacity:.40;
+  mix-blend-mode:screen;
+  filter:saturate(.86) contrast(1) brightness(.86);
+}
+.visual-photo-soft .visual-photo-title{
+  color:rgba(255,255,255,.62);
+}
+@media(max-width:900px){
+  .visual-photo-card img{opacity:.54}
+  .visual-photo-soft img{opacity:.34}
+}
