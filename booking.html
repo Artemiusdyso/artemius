@@ -43,6 +43,8 @@
         <input type="hidden" name="_subject" value="Nouvelle demande de booking — Lea & Artemius">
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_url" value="https://artemiusdyso.github.io/artemius/booking.html">
+        <input type="hidden" name="_next" value="https://artemiusdyso.github.io/artemius/merci.html">
         <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="display:none">
         <label>Nom / organisation<input required name="nom" autocomplete="name" placeholder="Votre nom ou votre structure"></label>
         <label>Email<input required type="email" name="email" autocomplete="email" placeholder="vous@exemple.com"></label>
@@ -53,7 +55,7 @@
         <label>Votre projet<textarea required name="message" placeholder="Ambiance recherchée, nombre de personnes, durée, budget indicatif..."></textarea></label>
         <button class="btn btn-primary" id="booking-submit" type="submit">Envoyer la demande →</button>
         <div id="form-status" class="form-status" role="status" aria-live="polite"></div>
-        <p class="fine">Le message est envoyé à <strong>leaetartemius@gmail.com</strong>. Lors du tout premier envoi, FormSubmit peut demander une validation unique de l'adresse de réception.</p>
+        <p class="fine">Le message est envoyé à <strong>leaetartemius@gmail.com</strong>. Si le formulaire n’est pas encore activé, ce premier envoi déclenche automatiquement un nouvel e-mail de confirmation FormSubmit.</p>
       </form>
       <div class="cta"><a class="btn btn-secondary" id="email-fallback" href="mailto:leaetartemius@gmail.com?subject=Demande%20de%20booking%20Lea%20%26%20Artemius">Écrire directement par e-mail</a></div>
     </div>
