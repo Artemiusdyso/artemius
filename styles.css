@@ -61,3 +61,30 @@ h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:500}h1{font-siz
   .visual-photo-card img{opacity:.54}
   .visual-photo-soft img{opacity:.34}
 }
+
+/* Final 50% blended artwork */
+.visual-photo-title{display:none!important}
+.visual-photo-card,
+.visual-photo-ghost,
+.visual-photo-soft{
+  background:transparent!important;
+  border-color:rgba(255,255,255,.025)!important;
+  box-shadow:none!important;
+}
+.visual-photo-card img,
+.visual-photo-ghost img,
+.visual-photo-soft img{
+  opacity:.5!important;
+  mix-blend-mode:screen!important;
+  filter:saturate(.9) contrast(1) brightness(.9)!important;
+}
+.visual-photo-card .visual-photo-shade,
+.visual-photo-ghost .visual-photo-shade,
+.visual-photo-soft .visual-photo-shade{
+  background:linear-gradient(180deg,rgba(5,7,10,.02) 0%,rgba(5,7,10,.015) 50%,rgba(5,7,10,.14) 100%)!important;
+}
+@media(max-width:900px){
+  .visual-photo-card img,
+  .visual-photo-ghost img,
+  .visual-photo-soft img{opacity:.5!important}
+}
