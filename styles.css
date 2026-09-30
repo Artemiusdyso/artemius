@@ -88,3 +88,73 @@ h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:500}h1{font-siz
   .visual-photo-ghost img,
   .visual-photo-soft img{opacity:.5!important}
 }
+
+/* Expandable book excerpt */
+.source-excerpt{
+  margin-top:28px;
+  max-width:760px;
+  border:1px solid rgba(211,178,113,.18);
+  background:linear-gradient(180deg,rgba(211,178,113,.055),rgba(255,255,255,.018));
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 16px 50px rgba(0,0,0,.16);
+}
+.source-excerpt-body{
+  position:relative;
+  padding:20px 22px 4px;
+  color:#c7c3b8;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:1rem;
+  line-height:1.72;
+  max-height:7.1em;
+  overflow:hidden;
+  transition:max-height .55s ease;
+}
+.source-excerpt-body:after{
+  content:"";
+  position:absolute;
+  left:0;right:0;bottom:0;
+  height:3.7em;
+  background:linear-gradient(180deg,rgba(9,11,16,0),rgba(9,11,16,.92));
+  pointer-events:none;
+  transition:opacity .3s ease;
+}
+.source-excerpt-body p{margin:.15em 0 .85em}
+.source-excerpt[data-collapsed="false"] .source-excerpt-body{
+  max-height:2200px;
+}
+.source-excerpt[data-collapsed="false"] .source-excerpt-body:after{
+  opacity:0;
+}
+.source-excerpt-toggle{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  padding:13px 18px 15px;
+  border:0;
+  border-top:1px solid rgba(255,255,255,.07);
+  background:rgba(255,255,255,.025);
+  color:#ead8ad;
+  font:700 .88rem/1 Inter,ui-sans-serif,system-ui,sans-serif;
+  letter-spacing:.03em;
+  cursor:pointer;
+  transition:background .2s ease,color .2s ease;
+}
+.source-excerpt-toggle:hover{
+  background:rgba(211,178,113,.07);
+  color:#fff0c8;
+}
+.source-excerpt-symbol{
+  width:24px;height:24px;
+  display:grid;place-items:center;
+  border-radius:50%;
+  border:1px solid rgba(211,178,113,.3);
+  color:var(--gold2);
+  font-size:1.05rem;
+  line-height:1;
+}
+@media(max-width:560px){
+  .source-excerpt-body{font-size:.96rem;padding:18px 18px 4px;max-height:7.4em}
+}
