@@ -487,3 +487,98 @@ h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:500}h1{font-siz
 /* Clean book cover: remove previous icon masking overlay */
 .book-icon-mask{display:none!important}
 .book-amazon-link{overflow:hidden;border-radius:9px}
+
+/* Final clean Amazon button under cover */
+.book-wrap{
+  width:min(365px,100%);
+  margin-inline:auto;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+.book-amazon-link{
+  width:100%;
+  display:block;
+  overflow:hidden;
+  border-radius:9px;
+}
+.book-amazon-link .book{
+  width:100%;
+  height:auto;
+  display:block;
+}
+.amazon-mini-under-book{
+  position:relative;
+  width:100%!important;
+  min-width:0!important;
+  max-width:none!important;
+  margin:16px 0 0!important;
+  padding:13px 20px!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:9px!important;
+  border-radius:999px!important;
+  overflow:hidden!important;
+  background:rgba(10,12,17,.72)!important;
+  border:1px solid rgba(255,255,255,.16)!important;
+  color:#f4efe4!important;
+  font-size:.92rem!important;
+  font-weight:700!important;
+  letter-spacing:.01em!important;
+  box-shadow:0 8px 24px rgba(0,0,0,.20)!important;
+  backdrop-filter:blur(10px);
+  opacity:1!important;
+  transform:none!important;
+  transition:transform .25s ease,border-color .25s ease,background .25s ease,box-shadow .25s ease!important;
+}
+.amazon-mini-under-book:hover{
+  transform:translateY(-2px)!important;
+  border-color:rgba(211,178,113,.48)!important;
+  background:rgba(18,20,26,.84)!important;
+  box-shadow:0 12px 30px rgba(0,0,0,.28)!important;
+}
+.amazon-mini-under-book .amazon-mini-arrow{
+  position:relative;
+  z-index:2;
+  color:#d3b271!important;
+  transition:transform .22s ease;
+}
+.amazon-mini-under-book:hover .amazon-mini-arrow{
+  transform:translate(2px,-2px);
+}
+.amazon-mini-under-book > span:not(.amazon-stars){
+  position:relative;
+  z-index:2;
+}
+.amazon-stars{
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  overflow:hidden;
+  border-radius:inherit;
+}
+.amazon-star{
+  position:absolute;
+  width:2px;
+  height:2px;
+  border-radius:50%;
+  background:#fff;
+  opacity:0;
+  box-shadow:0 0 5px rgba(255,255,255,.9);
+  animation:amazonStarTwinkle var(--dur,2.4s) ease-in-out var(--delay,0s) infinite;
+}
+.amazon-star:nth-child(3n){width:3px;height:3px}
+@media(max-width:900px){
+  .book-wrap{width:min(320px,100%)}
+}
+@media(max-width:560px){
+  .amazon-mini-under-book{
+    width:100%!important;
+    padding:12px 16px!important;
+    font-size:.86rem!important;
+    white-space:normal!important;
+    text-align:center!important;
+  }
+}
