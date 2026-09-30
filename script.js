@@ -29,3 +29,15 @@ if(excerptToggle&&excerptBox){
     if(label) label.textContent=collapsed?'Réduire':'Lire la suite';
   });
 }
+
+const amazonMiniLink=document.querySelector('.amazon-mini-link');
+if(amazonMiniLink && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+  const runAmazonSheen=()=>{
+    amazonMiniLink.classList.remove('is-sheen');
+    void amazonMiniLink.offsetWidth;
+    amazonMiniLink.classList.add('is-sheen');
+    setTimeout(()=>amazonMiniLink.classList.remove('is-sheen'),1300);
+  };
+  setTimeout(runAmazonSheen,900);
+  setInterval(runAmazonSheen,8500);
+}
