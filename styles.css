@@ -651,3 +651,51 @@ h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:500}h1{font-siz
 .book-wrap .book{
   opacity:.40!important;
 }
+
+/* Refined book cover transparency and 3D hover */
+.book-wrap{
+  perspective:1200px;
+}
+.book-amazon-link{
+  position:relative;
+  overflow:hidden;
+  border-radius:9px;
+  transform-style:preserve-3d;
+}
+.book-amazon-link .book{
+  opacity:.58!important;
+  transform:rotateY(-5deg) rotateX(1deg) translateZ(0);
+  transform-origin:center center;
+  transition:transform .45s cubic-bezier(.2,.7,.2,1), opacity .35s ease, filter .35s ease, box-shadow .45s ease;
+  will-change:transform;
+}
+.book-amazon-link:hover .book{
+  opacity:.72!important;
+  transform:rotateY(4deg) rotateX(-2deg) translateY(-7px) translateZ(12px);
+  filter:brightness(1.04) contrast(1.02);
+  box-shadow:0 34px 74px rgba(0,0,0,.5), -10px 14px 30px rgba(0,0,0,.22);
+}
+
+/* cleanly crop the tiny top-right UI icons without adding a visible mask */
+.book-amazon-link{
+  clip-path:inset(0 0 0 0 round 9px);
+}
+.book-amazon-link .book{
+  width:104%!important;
+  max-width:none!important;
+  margin-left:-2%!important;
+  margin-top:-1.5%!important;
+}
+
+@media(max-width:560px){
+  .book-amazon-link .book{
+    width:103%!important;
+    margin-left:-1.5%!important;
+    margin-top:-1%!important;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .book-amazon-link .book{transition:opacity .2s ease,filter .2s ease}
+  .book-amazon-link:hover .book{transform:rotateY(-5deg) rotateX(1deg)}
+}
