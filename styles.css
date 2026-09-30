@@ -699,3 +699,21 @@ h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:500}h1{font-siz
   .book-amazon-link .book{transition:opacity .2s ease,filter .2s ease}
   .book-amazon-link:hover .book{transform:rotateY(-5deg) rotateX(1deg)}
 }
+
+/* Hide cover UI icons by clean crop */
+.book-amazon-link{
+  overflow:hidden!important;
+}
+.book-amazon-link .book{
+  width:118%!important;
+  max-width:none!important;
+  margin-left:-2%!important;
+  margin-top:-4%!important;
+}
+@media(max-width:560px){
+  .book-amazon-link .book{
+    width:118%!important;
+    margin-left:-2%!important;
+    margin-top:-4%!important;
+  }
+}
