@@ -717,3 +717,30 @@ h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:500}h1{font-siz
     margin-top:-4%!important;
   }
 }
+
+/* French wide cover banner */
+.book-wrap.book-wrap-wide{
+  width:min(560px,100%);
+  max-width:560px;
+}
+.book-wrap.book-wrap-wide .book-amazon-link{
+  width:100%;
+  overflow:visible!important;
+  clip-path:none!important;
+  border-radius:12px;
+}
+.book-wrap.book-wrap-wide .book-amazon-link .book{
+  width:100%!important;
+  max-width:100%!important;
+  height:auto!important;
+  margin:0!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  border-radius:12px;
+}
+@media(max-width:900px){
+  .book-wrap.book-wrap-wide{
+    width:min(680px,100%);
+    max-width:680px;
+  }
+}
