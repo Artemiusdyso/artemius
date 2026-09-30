@@ -483,3 +483,7 @@ h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:500}h1{font-siz
 @media(prefers-reduced-motion:reduce){
   .amazon-star{animation:none;opacity:.35}
 }
+
+/* Clean book cover: remove previous icon masking overlay */
+.book-icon-mask{display:none!important}
+.book-amazon-link{overflow:hidden;border-radius:9px}
