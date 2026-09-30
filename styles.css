@@ -260,3 +260,33 @@ h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:500}h1{font-siz
 @media(max-width:700px){
   .amazon-home-card{align-items:flex-start;flex-direction:column;padding:22px}
 }
+
+/* Clickable book cover + icon mask */
+.book-amazon-link{
+  position:relative;
+  display:block;
+  border-radius:inherit;
+  cursor:pointer;
+  transition:transform .25s ease,filter .25s ease;
+}
+.book-amazon-link:hover{
+  transform:translateY(-3px);
+  filter:brightness(1.04);
+}
+.book-amazon-link .book{display:block}
+.book-icon-mask{
+  position:absolute;
+  top:2px;
+  right:2px;
+  width:24%;
+  height:9%;
+  border-radius:0 14px 0 14px;
+  background:
+    linear-gradient(120deg,rgba(79,68,52,.96),rgba(126,106,77,.92));
+  filter:saturate(.72) brightness(.82);
+  opacity:.98;
+  pointer-events:none;
+}
+@media(max-width:560px){
+  .book-icon-mask{width:25%;height:9.5%}
+}
