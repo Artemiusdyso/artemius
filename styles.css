@@ -613,3 +613,36 @@ h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:500}h1{font-siz
     border-top:1px solid rgba(255,255,255,.09);
   }
 }
+
+/* Visible language pill */
+.lang-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  flex:0 0 auto;
+  padding:8px 11px;
+  border:1px solid rgba(211,178,113,.34);
+  border-radius:999px;
+  background:rgba(211,178,113,.07);
+  color:#d8d4ca;
+  font-size:.75rem;
+  font-weight:800;
+  letter-spacing:.08em;
+  line-height:1;
+}
+.lang-pill .lang-current{color:#f1dba6}
+.lang-pill .lang-sep{color:rgba(255,255,255,.28)}
+.lang-pill a{
+  color:#fff;
+  transition:color .2s ease,transform .2s ease;
+}
+.lang-pill a:hover{color:#f1dba6;transform:translateY(-1px)}
+@media(max-width:900px){
+  .nav-inner{gap:12px}
+  .menu-toggle{order:3}
+  .lang-pill{order:2;margin-left:auto}
+  .menu{order:4}
+}
+@media(max-width:560px){
+  .lang-pill{padding:7px 9px;font-size:.7rem}
+}
