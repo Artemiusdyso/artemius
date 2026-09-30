@@ -15,3 +15,17 @@ if(bookingForm){
   };
   bookingForm.addEventListener('input',()=>{fallbackLink.href=buildMailto(new FormData(bookingForm));});
 }
+
+const excerptToggle=document.querySelector('.source-excerpt-toggle');
+const excerptBox=document.querySelector('.source-excerpt');
+if(excerptToggle&&excerptBox){
+  excerptToggle.addEventListener('click',()=>{
+    const collapsed=excerptBox.getAttribute('data-collapsed')!=='false';
+    excerptBox.setAttribute('data-collapsed',collapsed?'false':'true');
+    excerptToggle.setAttribute('aria-expanded',collapsed?'true':'false');
+    const symbol=excerptToggle.querySelector('.source-excerpt-symbol');
+    const label=excerptToggle.querySelector('.source-excerpt-label');
+    if(symbol) symbol.textContent=collapsed?'−':'+';
+    if(label) label.textContent=collapsed?'Réduire':'Lire la suite';
+  });
+}
