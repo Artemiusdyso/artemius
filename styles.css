@@ -646,3 +646,8 @@ h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:500}h1{font-siz
 @media(max-width:560px){
   .lang-pill{padding:7px 9px;font-size:.7rem}
 }
+
+/* Book cover opacity 40% */
+.book-wrap .book{
+  opacity:.40!important;
+}
