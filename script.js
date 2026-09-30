@@ -9,9 +9,11 @@ const bookingForm=document.querySelector('#booking-form');
 if(bookingForm){
   const fallbackLink=document.querySelector('#email-fallback');
   const buildMailto=(data)=>{
-    const subject=`Demande de booking — ${data.get('nom')||'Lea & Artemius'}`;
-    const body=[`Nom / organisation : ${data.get('nom')||''}`,`Email : ${data.get('email')||''}`,`Téléphone : ${data.get('telephone')||''}`,`Type d'événement : ${data.get('type')||''}`,`Date / période : ${data.get('date')||''}`,`Ville / lieu : ${data.get('lieu')||''}`,'','Projet :',data.get('message')||''].join('\n');
-    return `mailto:leaetartemius@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const en=document.documentElement.lang==='en';
+    const subject=en?`Booking request — ${data.get('nom')||'Lea & Artemius'}`:`Demande de booking — ${data.get('nom')||'Lea & Artemius'}`;
+    const body=en?[`Name / organisation: ${data.get('nom')||''}`,`Email: ${data.get('email')||''}`,`Phone: ${data.get('telephone')||''}`,`Event type: ${data.get('type')||''}`,`Date / period: ${data.get('date')||''}`,`City / venue: ${data.get('lieu')||''}`,'','Project:',data.get('message')||'']:[`Nom / organisation : ${data.get('nom')||''}`,`Email : ${data.get('email')||''}`,`Téléphone : ${data.get('telephone')||''}`,`Type d'événement : ${data.get('type')||''}`,`Date / période : ${data.get('date')||''}`,`Ville / lieu : ${data.get('lieu')||''}`,'','Projet :',data.get('message')||''];
+    const bodyText=body.join('\n');
+    return `mailto:leaetartemius@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
   };
   bookingForm.addEventListener('input',()=>{fallbackLink.href=buildMailto(new FormData(bookingForm));});
 }
@@ -26,7 +28,7 @@ if(excerptToggle&&excerptBox){
     const symbol=excerptToggle.querySelector('.source-excerpt-symbol');
     const label=excerptToggle.querySelector('.source-excerpt-label');
     if(symbol) symbol.textContent=collapsed?'−':'+';
-    if(label) label.textContent=collapsed?'Réduire':'Lire la suite';
+    if(label){const en=document.documentElement.lang==='en';label.textContent=collapsed?(en?'Show less':'Réduire'):(en?'Read more':'Lire la suite');}
   });
 }
 
