@@ -41,3 +41,21 @@ if(amazonMiniLink && !window.matchMedia('(prefers-reduced-motion: reduce)').matc
   setTimeout(runAmazonSheen,900);
   setInterval(runAmazonSheen,8500);
 }
+
+// Premium Amazon star twinkle
+const amazonButton=document.querySelector('.amazon-mini-under-book');
+if(amazonButton){
+  const starLayer=amazonButton.querySelector('.amazon-stars');
+  if(starLayer && !starLayer.children.length){
+    const starCount=14;
+    for(let n=0;n<starCount;n++){
+      const star=document.createElement('i');
+      star.className='amazon-star';
+      star.style.left=(6+Math.random()*88)+'%';
+      star.style.top=(15+Math.random()*70)+'%';
+      star.style.setProperty('--dur',(1.8+Math.random()*2.6)+'s');
+      star.style.setProperty('--delay',(-Math.random()*3.5)+'s');
+      starLayer.appendChild(star);
+    }
+  }
+}
