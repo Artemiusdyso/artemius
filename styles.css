@@ -227,3 +227,36 @@ h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:500}h1{font-siz
   .amazon-universe-link{padding:15px 16px;border-radius:16px}
   .amazon-universe-link strong{font-size:1.14rem}
 }
+
+/* Strong Amazon CTA */
+.btn-amazon{
+  background:linear-gradient(135deg,#d3b271,#f1dba6);
+  color:#111!important;
+  border-color:transparent!important;
+  box-shadow:0 10px 28px rgba(211,178,113,.22);
+}
+.btn-amazon:hover{
+  transform:translateY(-2px);
+  box-shadow:0 14px 34px rgba(211,178,113,.3);
+}
+.amazon-home-strip{padding:26px 0 10px;background:#07090d}
+.amazon-home-card{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+  padding:26px 30px;
+  border:1px solid rgba(211,178,113,.28);
+  border-radius:22px;
+  background:linear-gradient(135deg,rgba(211,178,113,.10),rgba(255,255,255,.025));
+  box-shadow:0 16px 46px rgba(0,0,0,.22);
+  transition:.25s ease;
+}
+.amazon-home-card:hover{transform:translateY(-2px);border-color:rgba(240,216,159,.55)}
+.amazon-home-card span{display:block;color:#d3b271;font-size:.73rem;font-weight:800;letter-spacing:.17em;margin-bottom:6px}
+.amazon-home-card strong{display:block;color:#fff8e8;font-family:Georgia,"Times New Roman",serif;font-size:clamp(1.3rem,2.2vw,2rem);font-weight:500}
+.amazon-home-card p{margin:7px 0 0;color:var(--muted)}
+.amazon-home-card b{white-space:nowrap;color:#f0d89f}
+@media(max-width:700px){
+  .amazon-home-card{align-items:flex-start;flex-direction:column;padding:22px}
+}
