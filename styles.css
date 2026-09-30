@@ -158,3 +158,21 @@ h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:500}h1{font-siz
 @media(max-width:560px){
   .source-excerpt-body{font-size:.96rem;padding:18px 18px 4px;max-height:7.4em}
 }
+
+/* Collapsed excerpt: first sentence only */
+.source-excerpt-body{
+  max-height:none!important;
+  overflow:visible!important;
+}
+.source-excerpt-body:after{
+  display:none!important;
+}
+.source-excerpt[data-collapsed="true"] .source-excerpt-body p:not(:first-child){
+  display:none!important;
+}
+.source-excerpt[data-collapsed="true"] .source-excerpt-body p:first-child{
+  margin-bottom:.35em;
+}
+.source-excerpt[data-collapsed="false"] .source-excerpt-body p{
+  display:block!important;
+}
