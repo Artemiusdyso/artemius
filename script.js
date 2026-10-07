@@ -64,32 +64,66 @@ if(amazonButton){
 
 // Animated featured home title
 document.querySelectorAll('[data-feature-title]').forEach(title=>{
+  const words=[...title.querySelectorAll('.feature-word')];
+
   if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
     title.classList.add('is-live');
     return;
   }
 
-  const runLoop=()=>{
-    title.classList.remove('is-live','is-glow');
-    void title.offsetWidth;
+  let timers=[];
+  let cycleTimer=null;
+  let active=false;
 
-    setTimeout(()=>title.classList.add('is-live'),120);
-    setTimeout(()=>title.classList.add('is-glow'),980);
-    setTimeout(()=>title.classList.remove('is-glow'),2200);
+  const clearTimers=()=>{
+    timers.forEach(t=>clearTimeout(t));
+    timers=[];
+    if(cycleTimer){clearInterval(cycleTimer);cycleTimer=null;}
   };
 
-  const titleObserver=new IntersectionObserver(entries=>{
+  const resetWords=()=>{
+    words.forEach(w=>w.classList.remove('is-off','is-flash'));
+  };
+
+  const pulseWord=(word,delay=0)=>{
+    timers.push(setTimeout(()=>{
+      word.classList.add('is-off');
+      timers.push(setTimeout(()=>{
+        word.classList.remove('is-off');
+        word.classList.add('is-flash');
+        timers.push(setTimeout(()=>word.classList.remove('is-flash'),520));
+      },420+Math.random()*380));
+    },delay));
+  };
+
+  const runCycle=()=>{
+    if(!active) return;
+    resetWords();
+
+    const shuffled=[...words].sort(()=>Math.random()-.5);
+    const count=Math.max(2,Math.min(words.length,2+Math.floor(Math.random()*words.length)));
+
+    shuffled.slice(0,count).forEach((word,i)=>{
+      pulseWord(word,180+i*(260+Math.random()*260));
+    });
+  };
+
+  const observer=new IntersectionObserver(entries=>{
     entries.forEach(entry=>{
       if(entry.isIntersecting){
-        runLoop();
-        const timer=setInterval(runLoop,6200);
-        title.dataset.loopTimer=String(timer);
-      }else if(title.dataset.loopTimer){
-        clearInterval(Number(title.dataset.loopTimer));
-        delete title.dataset.loopTimer;
+        active=true;
+        title.classList.add('is-live');
+        runCycle();
+        if(!cycleTimer){
+          cycleTimer=setInterval(runCycle,3600+Math.random()*1800);
+        }
+      }else{
+        active=false;
+        clearTimers();
+        resetWords();
       }
     });
-  },{threshold:.45});
+  },{threshold:.35});
 
-  titleObserver.observe(title);
+  observer.observe(title);
 });
