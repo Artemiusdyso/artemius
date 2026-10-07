@@ -857,3 +857,48 @@ h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:500}h1{font-siz
   }
   .feature-title .feature-release:after{width:100%;transition:none}
 }
+
+/* Random word pulse for featured title */
+.feature-title .feature-brand{
+  display:flex;
+  align-items:baseline;
+  gap:.16em;
+  flex-wrap:nowrap;
+}
+.feature-title .feature-word{
+  display:inline-block;
+  opacity:1;
+  transform:translateY(0) scale(1);
+  filter:blur(0);
+  transition:
+    opacity .55s ease,
+    transform .65s cubic-bezier(.2,.7,.2,1),
+    filter .55s ease,
+    text-shadow .55s ease;
+  will-change:opacity,transform,filter;
+}
+.feature-title .feature-word.is-off{
+  opacity:.08;
+  transform:translateY(8px) scale(.985);
+  filter:blur(2.4px);
+}
+.feature-title .feature-word.is-flash{
+  text-shadow:0 0 14px rgba(211,178,113,.35);
+}
+.feature-title .feature-release .feature-word{
+  color:var(--gold2);
+}
+@media(max-width:900px){
+  .feature-title .feature-brand{
+    flex-wrap:wrap;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .feature-title .feature-word{
+    opacity:1!important;
+    transform:none!important;
+    filter:none!important;
+    text-shadow:none!important;
+    transition:none!important;
+  }
+}
