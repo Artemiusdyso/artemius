@@ -28,7 +28,7 @@
 .workshops-objective{margin-top:34px;padding:28px 30px;border-left:2px solid #d3b271;background:linear-gradient(90deg,rgba(211,178,113,.075),transparent);border-radius:0 18px 18px 0}
 .workshops-objective small{display:block;margin-bottom:8px;color:#d3b271;text-transform:uppercase;letter-spacing:.16em;font-weight:800}
 .workshops-objective strong{font-family:Georgia,"Times New Roman",serif;font-size:clamp(1.55rem,3vw,2.55rem);font-weight:500;color:#fff8e8}
-.workshops-cta{margin-top:34px}
+.workshops-cta{margin-top:34px;display:flex;flex-wrap:wrap;gap:12px;align-items:center}\n#download-dossier:disabled{opacity:.65;cursor:wait}
 @media(max-width:900px){.workshops-grid{grid-template-columns:1fr}.workshops-hero{padding-top:96px}.workshops-title{font-size:clamp(3rem,12vw,5rem)}}
 @media(prefers-reduced-motion:reduce){.workshop-keyword{transition:none!important}.workshop-keyword.is-dim{opacity:1;filter:none;transform:none}}
 </style>
@@ -60,7 +60,7 @@
       <p>Initiation numérique, ChatGPT, sécurité en ligne, recherche d’emploi, création de contenus ou accompagnement des seniors : les ateliers sont construits selon le niveau, les objectifs et la réalité des participants, avec des exemples concrets et une mise en pratique immédiate.</p>
       <p>Ici, pas de jargon inutile ni de démonstration abstraite. On teste, on comprend, on pratique et on repart avec des méthodes directement applicables au quotidien ou dans un contexte professionnel.</p>
       <div class="workshops-objective"><small>Objectif</small><strong>Comprendre. Pratiquer. Gagner en autonomie.</strong></div>
-      <div class="workshops-cta"><a class="btn btn-primary" href="booking.html">Organiser un atelier adapté à vos besoins →</a></div>
+      <div class="workshops-cta"><a class="btn btn-primary" href="booking.html">Organiser un atelier adapté à vos besoins →</a><button class="btn btn-secondary" type="button" id="download-dossier">Télécharger le dossier de présentation ↓</button></div>
     </div>
     <aside class="workshops-card">
       <h3>Pour qui ?</h3>
@@ -75,5 +75,42 @@
 <script src="script.js"></script>
 <script>
 (()=>{const box=document.querySelector('[data-workshop-keywords]');if(!box||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;const words=[...box.querySelectorAll('.workshop-keyword')];let timers=[];const clear=()=>{timers.forEach(clearTimeout);timers=[];};const cycle=()=>{clear();words.forEach(w=>w.classList.remove('is-dim','is-lit'));const order=[...words].sort(()=>Math.random()-.5);const dimCount=2+Math.floor(Math.random()*3);order.slice(0,dimCount).forEach((w,i)=>{timers.push(setTimeout(()=>{w.classList.add('is-dim');timers.push(setTimeout(()=>{w.classList.remove('is-dim');w.classList.add('is-lit');timers.push(setTimeout(()=>w.classList.remove('is-lit'),800));},520+Math.random()*520));},180+i*(260+Math.random()*220)));});};cycle();setInterval(cycle,4300);})();
+</script>
+
+<script>
+const dossierBtn=document.querySelector('#download-dossier');
+if(dossierBtn){
+  dossierBtn.addEventListener('click',async()=>{
+    const label=dossierBtn.textContent;
+    dossierBtn.disabled=true;
+    dossierBtn.textContent='Préparation du dossier…';
+    try{
+      const parts=await Promise.all(
+        Array.from({length:8},(_,i)=>
+          fetch('assets/dossier_pdf_'+String(i).padStart(2,'0')+'.b64')
+            .then(res=>{if(!res.ok) throw new Error('PDF'); return res.text();})
+        )
+      );
+      const b64=parts.join('').replace(/\s/g,'');
+      const bin=atob(b64);
+      const bytes=new Uint8Array(bin.length);
+      for(let i=0;i<bin.length;i++) bytes[i]=bin.charCodeAt(i);
+      const blob=new Blob([bytes],{type:'application/pdf'});
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement('a');
+      a.href=url;
+      a.download='Dossier_Candidature_Formateur_Numerique_Serge_DHondt.pdf';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(()=>URL.revokeObjectURL(url),1500);
+    }catch(e){
+      alert("Le téléchargement n’a pas pu démarrer. Veuillez réessayer.");
+    }finally{
+      dossierBtn.disabled=false;
+      dossierBtn.textContent=label;
+    }
+  });
+}
 </script>
 </body></html>
