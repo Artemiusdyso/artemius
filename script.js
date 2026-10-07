@@ -61,3 +61,23 @@ if(amazonButton){
     }
   }
 }
+
+
+// Animated featured home title
+document.querySelectorAll('[data-feature-title]').forEach(title=>{
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    title.classList.add('is-live');
+    return;
+  }
+  const titleObserver=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        title.classList.add('is-live');
+        setTimeout(()=>title.classList.add('is-glow'),900);
+        setTimeout(()=>title.classList.remove('is-glow'),2200);
+        titleObserver.unobserve(entry.target);
+      }
+    });
+  },{threshold:.45});
+  titleObserver.observe(title);
+});
