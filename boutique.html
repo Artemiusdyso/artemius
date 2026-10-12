@@ -15,6 +15,7 @@ linear-gradient(180deg,#090b10,#07090d)}
 .shop-card{position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.11);border-radius:24px;background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.018));padding:26px;box-shadow:0 22px 60px rgba(0,0,0,.22)}
 .shop-card.is-ready{border-color:rgba(211,178,113,.26)}
 .shop-cover{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:16px;display:block;opacity:.78;background:#0b0d12}
+.shop-cover-placeholder{width:100%;aspect-ratio:16/10;border-radius:16px;display:flex;align-items:center;justify-content:center;text-align:center;background:radial-gradient(circle at 50% 30%,rgba(211,178,113,.18),transparent 32%),radial-gradient(circle at 75% 70%,rgba(110,74,160,.25),transparent 34%),linear-gradient(145deg,#07080d,#101321 58%,#090a10);border:1px solid rgba(211,178,113,.16);color:#e6d3a5;font-family:Georgia,"Times New Roman",serif;font-size:2.2rem;letter-spacing:.14em}
 .shop-card h3{font-family:Georgia,"Times New Roman",serif;font-size:1.75rem;font-weight:500;margin:20px 0 8px}
 .shop-meta{color:#d3b271;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase}
 .shop-desc{color:#b9b7b2;line-height:1.7}
@@ -40,12 +41,13 @@ linear-gradient(180deg,#090b10,#07090d)}
 <div class="shop-actions"><button class="btn btn-primary shop-buy" type="button" data-buy="lea-code-source" data-locale="fr">Acheter — 15 €</button><a class="btn btn-secondary" href="index.html">Découvrir le livre</a></div>
 <div class="shop-status" aria-live="polite"></div>
 </article>
-<article class="shop-card">
-<div class="shop-meta">Musique</div><h3>Lea & Artemius</h3>
-<p class="shop-desc">Albums, singles et éditions numériques seront progressivement proposés ici en téléchargement.</p>
-<div class="shop-price">Bientôt disponible</div>
-<div class="shop-actions"><button class="btn btn-secondary shop-buy" type="button" disabled>Prochainement</button><a class="btn btn-secondary" href="musique.html">Écouter les créations</a></div>
-<p class="shop-note">La partie musique sera activée dès que les références Stripe correspondantes seront ajoutées.</p>
+<article class="shop-card is-ready">
+<div class="shop-cover-placeholder" role="img" aria-label="Astra Nox — Lea & Artemius">ASTRA NOX</div>
+<div class="shop-meta">Musique • MP3 • Paiement unique</div><h3>Lea & Artemius — Astra Nox</h3>
+<p class="shop-desc">Une immersion électronique, cosmique et émotionnelle signée Lea & Artemius. Téléchargement numérique après achat.</p>
+<div class="shop-price">9,99 €</div>
+<div class="shop-actions"><button class="btn btn-primary shop-buy" type="button" data-buy="astra-nox" data-locale="fr">Acheter — 9,99 €</button><a class="btn btn-secondary" href="musique.html">Écouter les créations</a></div>
+<div class="shop-status" aria-live="polite"></div>
 </article>
 </div>
 <div class="shop-secure"><span>🔒</span><div><strong>Paiement sécurisé</strong><br>Le règlement s’effectue directement via Stripe. Les informations de carte ne transitent pas par GitHub Pages.</div></div>
