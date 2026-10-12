@@ -1,0 +1,73 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Shop — Lea & Artemius</title>
+<meta name="description" content="Official Lea & Artemius shop: books and music creations. Secure payment powered by Stripe.">
+<link rel="canonical" href="https://artemiusdyso.github.io/artemius/shop-en.html">
+<link rel="alternate" hreflang="fr" href="https://artemiusdyso.github.io/artemius/boutique.html">
+<link rel="alternate" hreflang="en" href="https://artemiusdyso.github.io/artemius/shop-en.html">
+<link rel="stylesheet" href="styles.css">
+<style>
+.shop-hero{min-height:54vh;display:flex;align-items:center;padding:112px 0 72px;background:
+radial-gradient(circle at 78% 22%,rgba(211,178,113,.11),transparent 28%),
+linear-gradient(180deg,#090b10,#07090d)}
+.shop-hero .lead{max-width:760px}
+.shop-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin-top:34px}
+.shop-card{position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.11);border-radius:24px;background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.018));padding:26px;box-shadow:0 22px 60px rgba(0,0,0,.22)}
+.shop-card.is-ready{border-color:rgba(211,178,113,.26)}
+.shop-cover{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:16px;display:block;opacity:.78;background:#0b0d12}
+.shop-card h3{font-family:Georgia,"Times New Roman",serif;font-size:1.75rem;font-weight:500;margin:20px 0 8px}
+.shop-meta{color:#d3b271;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase}
+.shop-desc{color:#b9b7b2;line-height:1.7}
+.shop-price{font-family:Georgia,"Times New Roman",serif;font-size:2rem;color:#f7f3ea;margin:18px 0}
+.shop-actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.shop-buy[disabled]{opacity:.48;cursor:not-allowed}
+.shop-note{margin-top:16px;color:#777d87;font-size:.85rem;line-height:1.55}
+.shop-secure{display:flex;gap:10px;align-items:flex-start;margin-top:28px;padding:16px 18px;border:1px solid rgba(255,255,255,.08);border-radius:16px;color:#aeb2ba;background:rgba(255,255,255,.025)}
+.shop-secure strong{color:#e8e2d7}
+.shop-status{min-height:1.4em;margin-top:10px;color:#d3b271;font-size:.88rem}
+@media(max-width:820px){.shop-grid{grid-template-columns:1fr}.shop-hero{padding-top:96px}}
+</style></head><body>
+<nav class="nav"><div class="container nav-inner"><a class="brand" href="index-en.html">LEA <span>&</span> ARTEMIUS</a><button class="menu-toggle" aria-label="Open menu" aria-expanded="false">☰</button><div class="menu"><a href="index-en.html">The book</a><a href="music-en.html">Lea & Artemius</a><a href="artemius-en.html">Artemius DJ</a><a class="active" href="shop-en.html">Shop</a><a href="booking-en.html">Booking</a></div><div class="lang-pill" aria-label="Language"><span class="lang-current">EN</span><span class="lang-sep">/</span><a href="boutique.html" lang="fr">FR</a></div></div></nav>
+<main>
+<section class="shop-hero"><div class="container reveal"><div class="kicker">Official shop</div><h1>Books &<br>creations</h1><p class="lead">Discover creations from the Lea & Artemius universe. Payments are handled on Stripe’s secure checkout page: no card details are stored on this website.</p></div></section>
+<section class="section"><div class="container reveal"><div class="eyebrow">Available now</div><h2>The book</h2>
+<div class="shop-grid">
+<article class="shop-card is-ready">
+<img class="shop-cover" src="assets/book-cover-en-ai.webp" alt="Cover of Lea & the Source Code">
+<div class="shop-meta">Book • One-time payment</div><h3>Lea & the Source Code</h3>
+<p class="shop-desc">Enter Artemius’ universe of consciousness, reality, meaning and mystery.</p>
+<div class="shop-price">€15.00</div>
+<div class="shop-actions"><button class="btn btn-primary shop-buy" type="button" data-buy="lea-code-source" data-locale="en">Buy — €15</button><a class="btn btn-secondary" href="index-en.html">Discover the book</a></div>
+<div class="shop-status" aria-live="polite"></div>
+</article>
+<article class="shop-card">
+<div class="shop-meta">Music</div><h3>Lea & Artemius</h3>
+<p class="shop-desc">Albums, singles and digital editions will progressively become available here for download.</p>
+<div class="shop-price">Coming soon</div>
+<div class="shop-actions"><button class="btn btn-secondary shop-buy" type="button" disabled>Coming soon</button><a class="btn btn-secondary" href="music-en.html">Listen to the music</a></div>
+<p class="shop-note">Music purchases will be activated as soon as the corresponding Stripe products are added.</p>
+</article>
+</div>
+<div class="shop-secure"><span>🔒</span><div><strong>Secure payment</strong><br>Payment is processed directly by Stripe. Card information never passes through GitHub Pages.</div></div>
+</div></section>
+</main>
+<footer class="footer"><div class="container footer-inner"><div>© <span data-year></span> Lea & Artemius</div><div class="social"><a href="mailto:leaetartemius@gmail.com">Contact</a><a href="booking-en.html">Booking</a></div></div></footer>
+<script src="script.js"></script>
+<script>
+document.querySelectorAll('[data-buy]').forEach(btn=>btn.addEventListener('click',async()=>{
+ const card=btn.closest('.shop-card'),status=card.querySelector('.shop-status'),label=btn.textContent;
+ btn.disabled=true;btn.textContent='Opening secure checkout…';status.textContent='';
+ try{
+  const res=await fetch('https://pgobqzdvvfvikqnrrjpd.supabase.co/functions/v1/create-checkout',{
+   method:'POST',headers:{'Content-Type':'application/json'},
+   body:JSON.stringify({slug:btn.dataset.buy,locale:btn.dataset.locale})
+  });
+  const data=await res.json();
+  if(!res.ok||!data.url) throw new Error();
+  window.location.href=data.url;
+ }catch(e){
+  status.textContent='Checkout could not be opened. Please try again in a moment.';
+  btn.disabled=false;btn.textContent=label;
+ }
+}));
+</script></body></html>
