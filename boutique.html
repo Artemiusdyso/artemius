@@ -59,7 +59,7 @@ document.querySelectorAll('[data-buy]').forEach(btn=>btn.addEventListener('click
  btn.disabled=true;btn.textContent='Connexion au paiement…';status.textContent='';
  try{
   const res=await fetch('https://pgobqzdvvfvikqnrrjpd.supabase.co/functions/v1/create-checkout',{
-   method:'POST',headers:{'Content-Type':'application/json'},
+   method:'POST',
    body:JSON.stringify({slug:btn.dataset.buy,locale:btn.dataset.locale})
   });
   const data=await res.json();
