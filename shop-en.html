@@ -14,8 +14,11 @@ linear-gradient(180deg,#090b10,#07090d)}
 .shop-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin-top:34px}
 .shop-card{position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.11);border-radius:24px;background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.018));padding:26px;box-shadow:0 22px 60px rgba(0,0,0,.22)}
 .shop-card.is-ready{border-color:rgba(211,178,113,.26)}
-.shop-cover{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:16px;display:block;opacity:.78;background:#0b0d12}
-.shop-cover-placeholder{width:100%;aspect-ratio:16/10;border-radius:16px;display:flex;align-items:center;justify-content:center;text-align:center;background:radial-gradient(circle at 50% 30%,rgba(211,178,113,.18),transparent 32%),radial-gradient(circle at 75% 70%,rgba(110,74,160,.25),transparent 34%),linear-gradient(145deg,#07080d,#101321 58%,#090a10);border:1px solid rgba(211,178,113,.16);color:#e6d3a5;font-family:Georgia,"Times New Roman",serif;font-size:2.2rem;letter-spacing:.14em}
+.shop-cover-frame{width:100%;aspect-ratio:4/3;border-radius:18px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.03)}
+.shop-cover{width:100%;height:100%;display:block}
+.shop-cover-book{object-fit:cover;object-position:center 12%}
+.shop-cover-music{object-fit:contain;object-position:center;padding:14px;background:rgba(255,255,255,.02)}
+
 .shop-card h3{font-family:Georgia,"Times New Roman",serif;font-size:1.75rem;font-weight:500;margin:20px 0 8px}
 .shop-meta{color:#d3b271;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase}
 .shop-desc{color:#b9b7b2;line-height:1.7}
@@ -34,7 +37,7 @@ linear-gradient(180deg,#090b10,#07090d)}
 <section class="section"><div class="container reveal"><div class="eyebrow">Available now</div><h2>The book</h2>
 <div class="shop-grid">
 <article class="shop-card is-ready">
-<img class="shop-cover" src="assets/book-cover-en-ai.webp" alt="Cover of Lea & the Source Code">
+<div class="shop-cover-frame"><img class="shop-cover shop-cover-book" src="assets/book-cover-en-ai.webp" alt="Cover of Lea & the Source Code"></div>
 <div class="shop-meta">Book • One-time payment</div><h3>Lea & the Source Code</h3>
 <p class="shop-desc">Enter Artemius’ universe of consciousness, reality, meaning and mystery.</p>
 <div class="shop-price">€15.00</div>
@@ -42,7 +45,7 @@ linear-gradient(180deg,#090b10,#07090d)}
 <div class="shop-status" aria-live="polite"></div>
 </article>
 <article class="shop-card is-ready">
-<img class="shop-cover" src="assets/astra-nox-cover.webp" alt="Astra Nox cover — Lea & Artemius">
+<div class="shop-cover-frame"><img class="shop-cover shop-cover-music" src="assets/astra-nox-cover.webp" alt="Astra Nox cover — Lea & Artemius"></div>
 <div class="shop-meta">Music • MP3 • One-time payment</div><h3>Lea & Artemius — Astra Nox</h3>
 <p class="shop-desc">An electronic, cosmic and emotional immersion by Lea & Artemius. Digital download after purchase.</p>
 <div class="shop-price">€9.99</div>
