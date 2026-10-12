@@ -15,6 +15,7 @@ linear-gradient(180deg,#090b10,#07090d)}
 .shop-card{position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.11);border-radius:24px;background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.018));padding:26px;box-shadow:0 22px 60px rgba(0,0,0,.22)}
 .shop-card.is-ready{border-color:rgba(211,178,113,.26)}
 .shop-cover{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:16px;display:block;opacity:.78;background:#0b0d12}
+.shop-cover-placeholder{width:100%;aspect-ratio:16/10;border-radius:16px;display:flex;align-items:center;justify-content:center;text-align:center;background:radial-gradient(circle at 50% 30%,rgba(211,178,113,.18),transparent 32%),radial-gradient(circle at 75% 70%,rgba(110,74,160,.25),transparent 34%),linear-gradient(145deg,#07080d,#101321 58%,#090a10);border:1px solid rgba(211,178,113,.16);color:#e6d3a5;font-family:Georgia,"Times New Roman",serif;font-size:2.2rem;letter-spacing:.14em}
 .shop-card h3{font-family:Georgia,"Times New Roman",serif;font-size:1.75rem;font-weight:500;margin:20px 0 8px}
 .shop-meta{color:#d3b271;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase}
 .shop-desc{color:#b9b7b2;line-height:1.7}
@@ -40,12 +41,13 @@ linear-gradient(180deg,#090b10,#07090d)}
 <div class="shop-actions"><button class="btn btn-primary shop-buy" type="button" data-buy="lea-code-source" data-locale="en">Buy — €15</button><a class="btn btn-secondary" href="index-en.html">Discover the book</a></div>
 <div class="shop-status" aria-live="polite"></div>
 </article>
-<article class="shop-card">
-<div class="shop-meta">Music</div><h3>Lea & Artemius</h3>
-<p class="shop-desc">Albums, singles and digital editions will progressively become available here for download.</p>
-<div class="shop-price">Coming soon</div>
-<div class="shop-actions"><button class="btn btn-secondary shop-buy" type="button" disabled>Coming soon</button><a class="btn btn-secondary" href="music-en.html">Listen to the music</a></div>
-<p class="shop-note">Music purchases will be activated as soon as the corresponding Stripe products are added.</p>
+<article class="shop-card is-ready">
+<div class="shop-cover-placeholder" role="img" aria-label="Astra Nox — Lea & Artemius">ASTRA NOX</div>
+<div class="shop-meta">Music • MP3 • One-time payment</div><h3>Lea & Artemius — Astra Nox</h3>
+<p class="shop-desc">An electronic, cosmic and emotional immersion by Lea & Artemius. Digital download after purchase.</p>
+<div class="shop-price">€9.99</div>
+<div class="shop-actions"><button class="btn btn-primary shop-buy" type="button" data-buy="astra-nox" data-locale="en">Buy — €9.99</button><a class="btn btn-secondary" href="music-en.html">Listen to the music</a></div>
+<div class="shop-status" aria-live="polite"></div>
 </article>
 </div>
 <div class="shop-secure"><span>🔒</span><div><strong>Secure payment</strong><br>Payment is processed directly by Stripe. Card information never passes through GitHub Pages.</div></div>
