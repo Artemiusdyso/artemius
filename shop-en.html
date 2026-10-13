@@ -29,39 +29,69 @@ linear-gradient(180deg,#090b10,#07090d)}
 .shop-secure{display:flex;gap:10px;align-items:flex-start;margin-top:28px;padding:16px 18px;border:1px solid rgba(255,255,255,.08);border-radius:16px;color:#aeb2ba;background:rgba(255,255,255,.025)}
 .shop-secure strong{color:#e8e2d7}
 .shop-status{min-height:1.4em;margin-top:10px;color:#d3b271;font-size:.88rem}
-@media(max-width:820px){.shop-grid{grid-template-columns:1fr}.shop-hero{padding-top:96px}}
+.shop-category{padding:78px 0;border-top:1px solid rgba(255,255,255,.08)}
+.shop-category:first-of-type{border-top:0}
+.shop-category-head{display:flex;justify-content:space-between;gap:28px;align-items:end;margin-bottom:10px}
+.shop-category-head p{max-width:680px;color:#9fa3ab;margin:0;line-height:1.7}
+.shop-category h2{margin-bottom:8px}
+.shop-empty{margin-top:28px;padding:24px 26px;border:1px dashed rgba(211,178,113,.24);border-radius:18px;color:#8f949c;background:rgba(255,255,255,.02)}
+@media(max-width:820px){.shop-grid{grid-template-columns:1fr}.shop-hero{padding-top:96px}.shop-category-head{display:block}.shop-category-head p{margin-top:10px}}
 </style></head><body>
 <nav class="nav"><div class="container nav-inner"><a class="brand" href="index-en.html">LEA <span>&</span> ARTEMIUS</a><button class="menu-toggle" aria-label="Open menu" aria-expanded="false">☰</button><div class="menu"><a href="index-en.html">The book</a><a href="music-en.html">Lea & Artemius</a><a href="artemius-en.html">Artemius DJ</a><a class="active" href="shop-en.html">Shop</a><a href="booking-en.html">Booking</a></div><div class="lang-pill" aria-label="Language"><span class="lang-current">EN</span><span class="lang-sep">/</span><a href="boutique.html" lang="fr">FR</a></div></div></nav>
 <main>
 <section class="shop-hero"><div class="container reveal"><div class="kicker">Official shop</div><h1>Books &<br>creations</h1><p class="lead">Discover creations from the Lea & Artemius universe. Payments are handled on Stripe’s secure checkout page: no card details are stored on this website.</p></div></section>
-<section class="section"><div class="container reveal"><div class="eyebrow">Available now</div><h2>The book</h2>
-<div class="shop-grid">
-<article class="shop-card is-ready">
-<div class="shop-cover-frame"><img class="shop-cover shop-cover-book" src="assets/book-cover-en-ai.webp" alt="Cover of Lea & the Source Code e-book"></div>
-<div class="shop-meta">E-book • PDF • One-time payment</div><h3>Lea & the Source Code</h3>
-<p class="shop-desc">English digital edition of <em>Lea & the Source Code</em>. Secure PDF download after purchase.</p>
-<div class="shop-price">€5.00</div>
-<div class="shop-actions"><button class="btn btn-primary shop-buy" type="button" data-buy="lea-source-code-en" data-locale="en">Buy the e-book — €5.00</button><a class="btn btn-secondary" href="index-en.html">Discover the book</a></div>
-<div class="shop-status" aria-live="polite"></div>
-<p class="shop-note">Digital PDF edition. Secure download available after payment.</p>
-</article>
-<article class="shop-card is-ready">
-<div class="shop-cover-frame"><img class="shop-cover shop-cover-book" src="assets/book-cover-en-ai.webp" alt="Cover of Lea & the Source Code physical book"></div>
-<div class="shop-meta">Physical book • One-time payment</div><h3>Lea & the Source Code</h3>
-<p class="shop-desc">The physical edition of <em>Lea & the Source Code</em> for readers who prefer a printed book.</p>
-<div class="shop-price">Coming soon</div>
-<div class="shop-actions"><button class="btn btn-secondary shop-buy" type="button" disabled>Coming soon</button><a class="btn btn-secondary" href="index-en.html">Discover the book</a></div>
-<p class="shop-note">The physical edition will be available to order soon.</p>
-</article>
-<article class="shop-card is-ready">
-<div class="shop-cover-frame"><img class="shop-cover shop-cover-music" src="assets/astra-nox-cover.webp?v=3" alt="Astra Nox cover — Lea & Artemius"></div>
-<div class="shop-meta">Music • MP3 • One-time payment</div><h3>Lea & Artemius — Astra Nox</h3>
-<p class="shop-desc">An electronic, cosmic and emotional immersion by Lea & Artemius. Digital download after purchase.</p>
-<div class="shop-price">€9.99</div>
-<div class="shop-actions"><button class="btn btn-primary shop-buy" type="button" data-buy="astra-nox" data-locale="en">Buy — €9.99</button><a class="btn btn-secondary" href="music-en.html">Listen to the music</a></div>
-<div class="shop-status" aria-live="polite"></div>
-</article>
-</div>
+<section class="section"><div class="container reveal">
+<section class="shop-category" id="lea-source-code">
+  <div class="shop-category-head">
+    <div><div class="eyebrow">Books & editions</div><h2>Lea & the Source Code</h2></div>
+    <p>Digital and physical editions from the literary universe of Lea & the Source Code.</p>
+  </div>
+  <div class="shop-grid">
+    <article class="shop-card is-ready">
+      <div class="shop-cover-frame"><img class="shop-cover shop-cover-book" src="assets/book-cover-en-ai.webp" alt="Cover of Lea & the Source Code e-book"></div>
+      <div class="shop-meta">E-book • PDF • One-time payment</div><h3>Lea & the Source Code</h3>
+      <p class="shop-desc">English digital edition of <em>Lea & the Source Code</em>. Secure PDF download after purchase.</p>
+      <div class="shop-price">€5.00</div>
+      <div class="shop-actions"><button class="btn btn-primary shop-buy" type="button" data-buy="lea-source-code-en" data-locale="en">Buy the e-book — €5.00</button><a class="btn btn-secondary" href="index-en.html">Discover the book</a></div>
+      <div class="shop-status" aria-live="polite"></div>
+      <p class="shop-note">Digital PDF edition. Secure download available after payment.</p>
+    </article>
+    <article class="shop-card is-ready">
+      <div class="shop-cover-frame"><img class="shop-cover shop-cover-book" src="assets/book-cover-en-ai.webp" alt="Cover of Lea & the Source Code physical book"></div>
+      <div class="shop-meta">Physical book • One-time payment</div><h3>Lea & the Source Code</h3>
+      <p class="shop-desc">The physical edition of <em>Lea & the Source Code</em> for readers who prefer a printed book.</p>
+      <div class="shop-price">Coming soon</div>
+      <div class="shop-actions"><button class="btn btn-secondary shop-buy" type="button" disabled>Coming soon</button><a class="btn btn-secondary" href="index-en.html">Discover the book</a></div>
+      <p class="shop-note">The physical edition will be available to order soon.</p>
+    </article>
+  </div>
+</section>
+
+<section class="shop-category" id="lea-artemius">
+  <div class="shop-category-head">
+    <div><div class="eyebrow">Original music</div><h2>Lea & Artemius</h2></div>
+    <p>Tracks, albums and musical creations from the Lea & Artemius universe.</p>
+  </div>
+  <div class="shop-grid">
+    <article class="shop-card is-ready">
+      <div class="shop-cover-frame"><img class="shop-cover shop-cover-music" src="assets/astra-nox-cover.webp?v=3" alt="Astra Nox cover — Lea & Artemius"></div>
+      <div class="shop-meta">Music • MP3 • One-time payment</div><h3>Lea & Artemius — Astra Nox</h3>
+      <p class="shop-desc">An electronic, cosmic and emotional immersion by Lea & Artemius. Digital download after purchase.</p>
+      <div class="shop-price">€9.99</div>
+      <div class="shop-actions"><button class="btn btn-primary shop-buy" type="button" data-buy="astra-nox" data-locale="en">Buy — €9.99</button><a class="btn btn-secondary" href="music-en.html">Listen to the music</a></div>
+      <div class="shop-status" aria-live="polite"></div>
+    </article>
+  </div>
+</section>
+
+<section class="shop-category" id="artemius">
+  <div class="shop-category-head">
+    <div><div class="eyebrow">DJ sets & mixes</div><h2>Artemius</h2></div>
+    <p>Mixes, DJ sets and selections by Artemius.</p>
+  </div>
+  <div class="shop-empty">The first mixes will be added here soon.</div>
+</section>
+
 <div class="shop-secure"><span>🔒</span><div><strong>Secure payment</strong><br>Payment is processed directly by Stripe. Card information never passes through GitHub Pages.</div></div>
 </div></section>
 </main>
