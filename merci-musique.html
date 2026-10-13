@@ -1,0 +1,30 @@
+<!doctype html><html lang="fr"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Téléchargement musique — Lea & Artemius</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="stylesheet" href="styles.css">
+<style>
+.thanks{min-height:calc(100vh - 78px);display:grid;place-items:center;padding:80px 0;background:radial-gradient(circle at 18% 20%,rgba(141,123,255,.16),transparent 28%),radial-gradient(circle at 82% 24%,rgba(211,178,113,.13),transparent 28%),linear-gradient(180deg,#090b10,#07090d)}
+.thanks-card{width:min(820px,100%);padding:38px;border:1px solid rgba(255,255,255,.11);border-radius:28px;background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.018));box-shadow:0 28px 90px rgba(0,0,0,.42);text-align:center}
+.thanks-check{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;margin:0 auto 18px;background:rgba(105,210,150,.10);border:1px solid rgba(105,210,150,.30);color:#b9f0cf;font-size:1.55rem}
+.thanks h1{font-size:clamp(2.4rem,5vw,4.6rem);margin:.1em 0 .22em}
+.thanks p{color:#b9b8b2;max-width:620px;margin-inline:auto}
+.thanks-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:26px}
+.thanks-note{margin-top:16px;color:#858a92;font-size:.86rem}
+</style></head><body>
+<nav class="nav"><div class="container nav-inner"><a class="brand" href="index.html">LEA <span>&</span> ARTEMIUS</a></div></nav>
+<main class="thanks"><div class="container"><section class="thanks-card">
+<div class="thanks-check">✓</div><div class="eyebrow">Paiement confirmé</div>
+<h1>Votre musique est prête.</h1>
+<p>Cliquez ci-dessous pour générer un lien privé et temporaire vers votre téléchargement MP3.</p>
+<div class="thanks-actions"><button id="downloadMusic" class="btn btn-primary" type="button">Télécharger le MP3</button><a class="btn btn-secondary" href="boutique.html">Retour à la boutique</a></div>
+<p id="downloadStatus" class="thanks-note" aria-live="polite">Le fichier est délivré uniquement après vérification du paiement.</p>
+</section></div></main>
+<footer class="footer"><div class="container footer-inner"><div>© <span data-year></span> Lea & Artemius</div></div></footer>
+<script src="script.js"></script>
+<script>
+const btn=document.getElementById('downloadMusic'),status=document.getElementById('downloadStatus');
+const sessionId=new URLSearchParams(location.search).get('session_id');
+if(!sessionId){btn.disabled=true;status.textContent='Session de paiement introuvable.';}
+btn.addEventListener('click',async()=>{if(!sessionId)return;const label=btn.textContent;btn.disabled=true;btn.textContent='Vérification…';status.textContent='Vérification sécurisée en cours…';try{const res=await fetch('https://pgobqzdvvfvikqnrrjpd.supabase.co/functions/v1/download-music',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session_id:sessionId})});const data=await res.json();if(!res.ok||!data.url)throw new Error();status.textContent='Paiement vérifié. Le téléchargement démarre.';window.location.href=data.url;}catch(e){status.textContent='Le téléchargement n’a pas pu être préparé. Réessayez dans quelques instants.';}finally{btn.disabled=false;btn.textContent=label;}});
+</script></body></html>
