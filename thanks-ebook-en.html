@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Thank you for your purchase — Lea & Artemius</title>
+<meta name="description" content="Thank you for purchasing Lea & the Source Code.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="stylesheet" href="styles.css">
+<style>
+.thanks{min-height:calc(100vh - 78px);display:grid;place-items:center;padding:80px 0;background:
+radial-gradient(circle at 20% 15%,rgba(141,123,255,.15),transparent 28%),
+radial-gradient(circle at 82% 22%,rgba(211,178,113,.12),transparent 28%),
+linear-gradient(180deg,#090b10,#07090d)}
+.thanks-card{width:min(860px,100%);display:grid;grid-template-columns:220px 1fr;gap:38px;align-items:center;padding:34px;border:1px solid rgba(255,255,255,.11);border-radius:28px;background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.018));box-shadow:0 28px 90px rgba(0,0,0,.42)}
+.thanks-cover{width:100%;border-radius:14px;border:1px solid rgba(255,255,255,.16);box-shadow:0 18px 55px rgba(0,0,0,.45)}
+.thanks-check{width:54px;height:54px;border-radius:50%;display:grid;place-items:center;margin-bottom:18px;background:rgba(105,210,150,.10);border:1px solid rgba(105,210,150,.30);color:#b9f0cf;font-size:1.55rem}
+.thanks h1{font-size:clamp(2.2rem,5vw,4.2rem);margin:.1em 0 .22em}
+.thanks p{color:#b9b8b2;max-width:590px}
+.thanks-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+.thanks-note{margin-top:16px;color:#858a92;font-size:.86rem}
+@media(max-width:720px){.thanks-card{grid-template-columns:1fr;text-align:center}.thanks-cover{max-width:220px;margin:auto}.thanks-check{margin:0 auto 18px}.thanks-actions{justify-content:center}}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="container nav-inner"><a class="brand" href="index-en.html">LEA <span>&</span> ARTEMIUS</a></div></nav>
+<main class="thanks">
+  <div class="container">
+    <section class="thanks-card">
+      <img class="thanks-cover" src="assets/book-cover-en-ai.webp" alt="Cover of Lea & the Source Code">
+      <div>
+        <div class="thanks-check">✓</div>
+        <div class="eyebrow">Payment confirmed</div>
+        <h1>Thank you for your purchase.</h1>
+        <p>Your digital copy of <em>Lea & the Source Code</em> is ready. Click below to generate a private, temporary download link.</p>
+        <div class="thanks-actions">
+          <button id="downloadEbook" class="btn btn-primary" type="button">Download the e-book</button>
+          <a class="btn btn-secondary" href="shop-en.html">Back to the shop</a>
+        </div>
+        <p id="downloadStatus" class="thanks-note" aria-live="polite">The download link is generated only after the payment has been verified.</p>
+      </div>
+    </section>
+  </div>
+</main>
+<footer class="footer"><div class="container footer-inner"><div>© <span data-year></span> Lea & Artemius</div><div class="social"><a href="mailto:leaetartemius@gmail.com">Contact</a></div></div></footer>
+<script src="script.js"></script>
+<script>
+const downloadBtn = document.getElementById('downloadEbook');
+const downloadStatus = document.getElementById('downloadStatus');
+const sessionId = new URLSearchParams(location.search).get('session_id');
+
+if (!sessionId) {
+  downloadBtn.disabled = true;
+  downloadStatus.textContent = 'Payment session not found. Please return here from Stripe after checkout.';
+}
+
+downloadBtn.addEventListener('click', async () => {
+  if (!sessionId) return;
+  const original = downloadBtn.textContent;
+  downloadBtn.disabled = true;
+  downloadBtn.textContent = 'Verifying payment…';
+  downloadStatus.textContent = 'Secure verification in progress…';
+  try {
+    const res = await fetch('https://pgobqzdvvfvikqnrrjpd.supabase.co/functions/v1/download-ebook-en', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({session_id: sessionId})
+    });
+    const data = await res.json();
+    if (!res.ok || !data.url) throw new Error(data.error || 'download_error');
+    downloadStatus.textContent = 'Payment verified. Your download is starting.';
+    window.location.href = data.url;
+  } catch (e) {
+    downloadStatus.textContent = 'The file is not available yet or the payment could not be verified. Please try again in a moment.';
+  } finally {
+    downloadBtn.disabled = false;
+    downloadBtn.textContent = original;
+  }
+});
+</script>
+</body>
+</html>
