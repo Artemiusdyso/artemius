@@ -37,12 +37,12 @@ linear-gradient(180deg,#090b10,#07090d)}
         <div class="thanks-check">✓</div>
         <div class="eyebrow">Paiement confirmé</div>
         <h1>Merci pour votre achat.</h1>
-        <p>Votre exemplaire numérique de <em>Léa & le Code Source</em> est prêt à vous accompagner. Le téléchargement sécurisé sera disponible ici dès la dernière étape de configuration terminée.</p>
+        <p>Votre exemplaire numérique de <em>Léa & le Code Source</em> est prêt. Cliquez ci-dessous pour générer un lien de téléchargement privé et temporaire.</p>
         <div class="thanks-actions">
-          <button class="btn btn-primary download-pending" type="button" disabled>Télécharger l’ebook</button>
+          <button id="downloadEbook" class="btn btn-primary" type="button">Télécharger l’ebook</button>
           <a class="btn btn-secondary" href="boutique.html">Retour à la boutique</a>
         </div>
-        <p class="thanks-note">Conservez cette page ouverte pendant le test. Aucun fichier n’est exposé publiquement sur GitHub.</p>
+        <p id="downloadStatus" class="thanks-note" aria-live="polite">Le lien de téléchargement est généré uniquement après vérification du paiement.</p>
       </div>
     </section>
   </div>
@@ -54,5 +54,39 @@ linear-gradient(180deg,#090b10,#07090d)}
   </div>
 </footer>
 <script src="script.js"></script>
+<script>
+const downloadBtn = document.getElementById('downloadEbook');
+const downloadStatus = document.getElementById('downloadStatus');
+const sessionId = new URLSearchParams(location.search).get('session_id');
+
+if (!sessionId) {
+  downloadBtn.disabled = true;
+  downloadStatus.textContent = 'Session de paiement introuvable. Revenez ici depuis la confirmation Stripe.';
+}
+
+downloadBtn.addEventListener('click', async () => {
+  if (!sessionId) return;
+  const original = downloadBtn.textContent;
+  downloadBtn.disabled = true;
+  downloadBtn.textContent = 'Vérification du paiement…';
+  downloadStatus.textContent = 'Vérification sécurisée en cours…';
+  try {
+    const res = await fetch('https://pgobqzdvvfvikqnrrjpd.supabase.co/functions/v1/download-ebook', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({session_id: sessionId})
+    });
+    const data = await res.json();
+    if (!res.ok || !data.url) throw new Error(data.error || 'download_error');
+    downloadStatus.textContent = 'Paiement vérifié. Votre téléchargement démarre.';
+    window.location.href = data.url;
+  } catch (e) {
+    downloadStatus.textContent = 'Le fichier n’est pas encore disponible ou le paiement n’a pas pu être vérifié. Réessayez dans quelques instants.';
+  } finally {
+    downloadBtn.disabled = false;
+    downloadBtn.textContent = original;
+  }
+});
+</script>
 </body>
 </html>
