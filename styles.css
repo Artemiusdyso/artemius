@@ -902,3 +902,7 @@ h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:500}h1{font-siz
     transition:none!important;
   }
 }
+
+/* Private shop state */
+.shop-disabled{opacity:.38;color:#7d8188;cursor:not-allowed;pointer-events:none;user-select:none;text-decoration:none}
+.shop-disabled::after{content:" · privé";font-size:.72em;letter-spacing:.04em;opacity:.75}
