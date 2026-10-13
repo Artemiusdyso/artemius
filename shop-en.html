@@ -1,5 +1,6 @@
 <!doctype html><html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
 <title>Shop — Lea & Artemius</title>
 <meta name="description" content="Official Lea & Artemius shop: books and music creations. Secure payment powered by Stripe.">
 <link rel="canonical" href="https://artemiusdyso.github.io/artemius/shop-en.html">
@@ -36,7 +37,16 @@ linear-gradient(180deg,#090b10,#07090d)}
 .shop-category h2{margin-bottom:8px}
 .shop-empty{margin-top:28px;padding:24px 26px;border:1px dashed rgba(211,178,113,.24);border-radius:18px;color:#8f949c;background:rgba(255,255,255,.02)}
 @media(max-width:820px){.shop-grid{grid-template-columns:1fr}.shop-hero{padding-top:96px}.shop-category-head{display:block}.shop-category-head p{margin-top:10px}}
-</style></head><body>
+
+.shop-private-locked nav,.shop-private-locked main,.shop-private-locked footer{display:none!important}
+.shop-gate{min-height:100vh;display:grid;place-items:center;padding:28px;background:radial-gradient(circle at 50% 20%,rgba(211,178,113,.10),transparent 32%),#07090d;color:#f7f3ea}
+.shop-gate-card{width:min(560px,100%);padding:34px;border:1px solid rgba(255,255,255,.12);border-radius:24px;background:rgba(255,255,255,.035);text-align:center;box-shadow:0 30px 90px rgba(0,0,0,.42)}
+.shop-gate-card h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(2rem,5vw,3.6rem);font-weight:500;margin:.2em 0 .35em}
+.shop-gate-card p{color:#aeb2ba;line-height:1.7}
+.shop-gate-card .btn{margin-top:14px}
+.shop-gate-note{min-height:1.5em;margin-top:14px;color:#d3b271;font-size:.9rem}
+</style></head><body class="shop-private-locked">
+<div id="shopGate" class="shop-gate"><div class="shop-gate-card"><div class="kicker">Private access</div><h1>Shop temporarily private</h1><p>This shop is currently being prepared and is not open to the public.</p><p>Access is reserved for Artemius.</p><button id="shopLogin" class="btn btn-primary" type="button">Send my sign-in link</button><div id="shopGateNote" class="shop-gate-note" aria-live="polite"></div><p><a class="btn btn-secondary" href="index-en.html">Back to the site</a></p></div></div>
 <nav class="nav"><div class="container nav-inner"><a class="brand" href="index-en.html">LEA <span>&</span> ARTEMIUS</a><button class="menu-toggle" aria-label="Open menu" aria-expanded="false">☰</button><div class="menu"><a href="index-en.html">The book</a><a href="music-en.html">Lea & Artemius</a><a href="artemius-en.html">Artemius DJ</a><a class="active" href="shop-en.html">Shop</a><a href="booking-en.html">Booking</a></div><div class="lang-pill" aria-label="Language"><span class="lang-current">EN</span><span class="lang-sep">/</span><a href="boutique.html" lang="fr">FR</a></div></div></nav>
 <main>
 <section class="shop-hero"><div class="container reveal"><div class="kicker">Official shop</div><h1>Books &<br>creations</h1><p class="lead">Discover creations from the Lea & Artemius universe. Payments are handled on Stripe’s secure checkout page: no card details are stored on this website.</p></div></section>
@@ -105,21 +115,54 @@ linear-gradient(180deg,#090b10,#07090d)}
 </main>
 <footer class="footer"><div class="container footer-inner"><div>© <span data-year></span> Lea & Artemius</div><div class="social"><a href="mailto:leaetartemius@gmail.com">Contact</a><a href="booking-en.html">Booking</a></div></div></footer>
 <script src="script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-document.querySelectorAll('[data-buy]').forEach(btn=>btn.addEventListener('click',async()=>{
- const card=btn.closest('.shop-card'),status=card.querySelector('.shop-status'),label=btn.textContent;
- btn.disabled=true;btn.textContent='Opening secure checkout…';status.textContent='';
- try{
-  const res=await fetch('https://pgobqzdvvfvikqnrrjpd.supabase.co/functions/v1/create-checkout',{
-   method:'POST',
-   body:JSON.stringify({slug:btn.dataset.buy,locale:btn.dataset.locale})
-  });
-  const data=await res.json();
-  if(!res.ok||!data.url) throw new Error();
-  window.location.href=data.url;
- }catch(e){
-  status.textContent='Checkout could not be opened. Please try again in a moment.';
-  btn.disabled=false;btn.textContent=label;
+(async()=>{
+ const OWNER_EMAIL='leaetartemius@gmail.com';
+ const client=supabase.createClient('https://pgobqzdvvfvikqnrrjpd.supabase.co','sb_publishable_XPMxVlZ5YVtVHTYQg1RqLw_9nN_ODQA');
+ const gate=document.getElementById('shopGate'),login=document.getElementById('shopLogin'),note=document.getElementById('shopGateNote');
+ async function unlock(session){
+   const email=(session?.user?.email||'').toLowerCase();
+   if(email!==OWNER_EMAIL){ if(session) await client.auth.signOut(); return false; }
+   window.shopAccessSession=session;
+   document.body.classList.remove('shop-private-locked');
+   gate.hidden=true;
+   return true;
  }
-}));
+ const {data:{session}}=await client.auth.getSession();
+ await unlock(session);
+ client.auth.onAuthStateChange(async(_event,newSession)=>{ if(newSession) await unlock(newSession); });
+ login.addEventListener('click',async()=>{
+   login.disabled=true;
+   note.textContent='Sending secure sign-in link…';
+   const redirectTo=location.origin+location.pathname;
+   const {error}=await client.auth.signInWithOtp({email:OWNER_EMAIL,options:{emailRedirectTo:redirectTo,shouldCreateUser:true}});
+   if(error){
+     note.textContent='Unable to send the link right now.';
+     login.disabled=false;
+     return;
+   }
+   note.textContent='Sign-in link sent to the authorized address. Open the email and click the link.';
+   login.disabled=false;
+ });
+ document.querySelectorAll('[data-buy]').forEach(btn=>btn.addEventListener('click',async()=>{
+   const card=btn.closest('.shop-card'),status=card.querySelector('.shop-status'),label=btn.textContent;
+   btn.disabled=true;btn.textContent='Opening secure checkout…';status.textContent='';
+   try{
+     const session=window.shopAccessSession;
+     if(!session?.access_token) throw new Error('auth');
+     const res=await fetch('https://pgobqzdvvfvikqnrrjpd.supabase.co/functions/v1/create-checkout',{
+       method:'POST',
+       headers:{'Content-Type':'application/json','Authorization':'Bearer '+session.access_token},
+       body:JSON.stringify({slug:btn.dataset.buy,locale:btn.dataset.locale})
+     });
+     const data=await res.json();
+     if(!res.ok||!data.url) throw new Error();
+     window.location.href=data.url;
+   }catch(e){
+     status.textContent='Checkout could not be opened. Please try again in a moment.';
+     btn.disabled=false;btn.textContent=label;
+   }
+ }));
+})();
 </script></body></html>
