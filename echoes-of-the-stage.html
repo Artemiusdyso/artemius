@@ -58,7 +58,7 @@ $('quit').onclick=()=>{$('quitModal').classList.remove('hidden');locked=true;tok
 $('confirmQuit').onclick=()=>{$('quitModal').classList.add('hidden');$('game').classList.add('hidden');$('finish').classList.add('hidden');$('setup').classList.remove('hidden');players=[];score=0;lives=5;level=1;refresh()};
 $('cancelQuit').onclick=()=>{$('quitModal').classList.add('hidden');play()};
 $('continue').onclick=()=>{$('anchor').classList.add('hidden');if(!$('recordModal').classList.contains('hidden'))return;next()};
-$('recordClose').onclick=()=>{$('recordModal').classList.add('hidden');recordOpen=false};
+$('recordClose').onclick=()=>{$('recordModal').classList.add('hidden');recordOpen=false;if($('anchor').classList.contains('hidden')&&!$('game').classList.contains('hidden')&&!locked)newLevel()};
 $('home').onclick=()=>{$('finish').classList.add('hidden');$('setup').classList.remove('hidden')};
 refresh();
 </script></body></html>
