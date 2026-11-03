@@ -32,7 +32,7 @@ const t=T[en?'en':'fr'];function set(id,s){$(id).textContent=s}
 $('langLink').textContent=en?'FR':'EN';$('langLink').href=en?'?lang=fr':'?lang=en';
 $('backLink').href=en?'index-en.html':'index.html';
 const pads=[...document.querySelectorAll('[data-pad]')],freq=[432,528,639,963],MAX=100,MAXL=5;
-let ctx=null,players=[],pi=0,score=0,lives=5,level=1,best=0,seq=[],pos=0,locked=true,token=0,recordOpen=false;
+let ctx=null,players=[],pi=0,score=0,lives=5,level=1,best=0,seq=[],pos=0,locked=true,token=0,recordOpen=false,pendingNextStart=false;
 try{best=Number(localStorage.getItem('echoesStageBest')||0)}catch(e){}
 function fmt(n){return n.toLocaleString(en?'en-US':'fr-FR')}
 function refresh(){set('player',players[pi]?.name||t.solo);set('level',level+' / '+MAX);set('score',fmt(score));set('lives','♥ '.repeat(lives)||'—');set('record',fmt(best))}
@@ -46,7 +46,7 @@ function duration(l){return Math.max(85,310-(l-1)*2.25)}
 function play(){locked=true;let id=++token;let g=gap(level),d=duration(level);msg(t.listen);seq.forEach((v,i)=>setTimeout(()=>{if(id===token)flash(v,d)},500+i*g));setTimeout(()=>{if(id!==token)return;locked=false;msg(t.yourturn.replace('{name}',players[pi].name).replace('{n}',seq.length))},500+seq.length*g+170)}
 function newLevel(){level=players[pi].level;seq=Array.from({length:len(level)},()=>Math.floor(Math.random()*4));pos=0;refresh();play()}
 function end(){locked=true;token++;$('game').classList.add('hidden');$('finish').classList.remove('hidden');let rank=[...players].sort((a,b)=>b.score-a.score);$('ranking').textContent=(players.length>1?t.ranking+'\n':'')+rank.map((p,i)=>(i+1)+'. '+p.name+' — '+fmt(p.score)).join('\n')+(players.length===1?'\n'+t.done:'')}
-function next(){if(players.every(p=>p.level>MAX)){end();return}let n=0;do{pi=(pi+1)%players.length;n++}while(players[pi].level>MAX&&n<=players.length);level=players[pi].level;refresh();msg(t.turn.replace('{name}',players[pi].name).replace('{level}',level));setTimeout(()=>{if($('anchor').classList.contains('hidden')&&$('recordModal').classList.contains('hidden'))newLevel()},850)}
+function next(){if(players.every(p=>p.level>MAX)){end();return}let n=0;do{pi=(pi+1)%players.length;n++}while(players[pi].level>MAX&&n<=players.length);level=players[pi].level;refresh();msg(t.turn.replace('{name}',players[pi].name).replace('{level}',level));setTimeout(()=>{if($('anchor').classList.contains('hidden')){if($('recordModal').classList.contains('hidden'))newLevel();else pendingNextStart=true}},850)}
 function recordCheck(){if(score>best){best=score;try{localStorage.setItem('echoesStageBest',String(best))}catch(e){}recordOpen=true;set('recordMessage',t.recordMessage.replace('{score}',fmt(score)));$('recordModal').classList.remove('hidden')}}
 function success(){pos++;if(pos<seq.length)return;locked=true;let done=level,pts=100+level*15+Math.max(0,seq.length-3)*10;score+=pts;players[pi].score+=pts;players[pi].level=level+1;let anchor=done%10===0;if(anchor)lives=Math.min(MAXL,lives+1);refresh();msg(t.perfect.replace('{points}',fmt(pts)));recordCheck();setTimeout(()=>{if(anchor){set('anchorTitle',t.anchorTitle);set('anchorText',t.anchorText.replace('{level}',done));$('anchor').classList.remove('hidden')}else if(players[pi].level>MAX){next()}else next()},850)}
 function fail(){locked=true;lives=Math.max(0,lives-1);refresh();if(!lives){msg(t.gameover);setTimeout(end,700);return}msg(t.error.replace('{n}',lives));setTimeout(next,750)}
@@ -58,7 +58,7 @@ $('quit').onclick=()=>{$('quitModal').classList.remove('hidden');locked=true;tok
 $('confirmQuit').onclick=()=>{$('quitModal').classList.add('hidden');$('game').classList.add('hidden');$('finish').classList.add('hidden');$('setup').classList.remove('hidden');players=[];score=0;lives=5;level=1;refresh()};
 $('cancelQuit').onclick=()=>{$('quitModal').classList.add('hidden');play()};
 $('continue').onclick=()=>{$('anchor').classList.add('hidden');if(!$('recordModal').classList.contains('hidden'))return;next()};
-$('recordClose').onclick=()=>{$('recordModal').classList.add('hidden');recordOpen=false;if($('anchor').classList.contains('hidden')&&!$('game').classList.contains('hidden')&&!locked)newLevel()};
+$('recordClose').onclick=()=>{$('recordModal').classList.add('hidden');recordOpen=false;if(pendingNextStart&&$('anchor').classList.contains('hidden')){pendingNextStart=false;newLevel()}};
 $('home').onclick=()=>{$('finish').classList.add('hidden');$('setup').classList.remove('hidden')};
 refresh();
 </script></body></html>
