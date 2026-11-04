@@ -17,6 +17,7 @@ if(bookingForm){
   };
   bookingForm.addEventListener('input',()=>{fallbackLink.href=buildMailto(new FormData(bookingForm));});
 }
+
 const excerptToggle=document.querySelector('.source-excerpt-toggle');
 const excerptBox=document.querySelector('.source-excerpt');
 if(excerptToggle&&excerptBox){
