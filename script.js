@@ -24,20 +24,7 @@ if(bookingForm){
   bookingForm.addEventListener('input',updateFallback);
   bookingForm.addEventListener('change',updateFallback);
 
-  // Keep the browser's native POST to FormSubmit. This is the most reliable
-  // path for first-time activation and avoids an AJAX handler swallowing submit.
-  bookingForm.addEventListener('submit',()=>{
-    const en=document.documentElement.lang==='en';
-    if(formStatus){
-      formStatus.className='form-status show sending';
-      formStatus.textContent=en?'Sending your request to FormSubmit…':'Envoi de votre demande à FormSubmit…';
-    }
-    if(submitButton){
-      submitButton.disabled=true;
-      submitButton.textContent=en?'Sending…':'Envoi en cours…';
-    }
-  });
-
+  // Deliberately do not intercept submit: the browser posts the form directly to FormSubmit.
   updateFallback();
 }
 
