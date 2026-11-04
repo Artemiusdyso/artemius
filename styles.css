@@ -910,3 +910,18 @@ h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:500}h1{font-siz
 /* Keep booking submit control above decorative card layers and visibly clickable. */
 .booking-grid .card .form { position: relative; z-index: 2; }
 .booking-submit-direct { position: relative; z-index: 4; pointer-events: auto; cursor: pointer; }
+
+/* Ensure the direct booking action remains above card decoration. */
+.booking-grid .card { isolation: isolate; }
+.booking-grid .card .form { position: relative; z-index: 5; }
+.booking-submit-direct {
+  position: relative !important;
+  z-index: 10 !important;
+  display: inline-flex !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  touch-action: manipulation;
+}
+.booking-submit-direct::before,
+.booking-submit-direct::after { pointer-events: none !important; }
