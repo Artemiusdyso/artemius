@@ -8,26 +8,15 @@ document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 const bookingForm=document.querySelector('#booking-form');
 if(bookingForm){
   const fallbackLink=document.querySelector('#email-fallback');
-  const submitButton=bookingForm.querySelector('#booking-submit');
-  const formStatus=bookingForm.querySelector('#form-status');
-
   const buildMailto=(data)=>{
     const en=document.documentElement.lang==='en';
     const subject=en?`Booking request — ${data.get('nom')||'Lea & Artemius'}`:`Demande de booking — ${data.get('nom')||'Lea & Artemius'}`;
     const body=en?[`Name / organisation: ${data.get('nom')||''}`,`Email: ${data.get('email')||''}`,`Phone: ${data.get('telephone')||''}`,`Event type: ${data.get('type')||''}`,`Date / period: ${data.get('date')||''}`,`City / venue: ${data.get('lieu')||''}`,'','Project:',data.get('message')||'']:[`Nom / organisation : ${data.get('nom')||''}`,`Email : ${data.get('email')||''}`,`Téléphone : ${data.get('telephone')||''}`,`Type d'événement : ${data.get('type')||''}`,`Date / période : ${data.get('date')||''}`,`Ville / lieu : ${data.get('lieu')||''}`,'','Projet :',data.get('message')||''];
-    return `mailto:leaetartemius@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body.join('\\n'))}`;
+    const bodyText=body.join('\n');
+    return `mailto:leaetartemius@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
   };
-
-  const updateFallback=()=>{
-    if(fallbackLink) fallbackLink.href=buildMailto(new FormData(bookingForm));
-  };
-  bookingForm.addEventListener('input',updateFallback);
-  bookingForm.addEventListener('change',updateFallback);
-
-  // Deliberately do not intercept submit: the browser posts the form directly to FormSubmit.
-  updateFallback();
+  bookingForm.addEventListener('input',()=>{fallbackLink.href=buildMailto(new FormData(bookingForm));});
 }
-
 const excerptToggle=document.querySelector('.source-excerpt-toggle');
 const excerptBox=document.querySelector('.source-excerpt');
 if(excerptToggle&&excerptBox){
