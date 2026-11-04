@@ -15,7 +15,83 @@ if(bookingForm){
     const bodyText=body.join('\n');
     return `mailto:leaetartemius@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
   };
-  bookingForm.addEventListener('input',()=>{fallbackLink.href=buildMailto(new FormData(bookingForm));});
+  const submitButton=bookingForm.querySelector('#booking-submit');
+  const formStatus=bookingForm.querySelector('#form-status');
+  const languageIsEnglish=document.documentElement.lang==='en';
+  const originalButtonText=submitButton ? submitButton.textContent : '';
+
+  const showFormStatus=(type,text)=>{
+    if(!formStatus) return;
+    formStatus.className='form-status show '+type;
+    formStatus.textContent=text;
+  };
+
+  bookingForm.addEventListener('submit',async event=>{
+    // Use FormSubmit's documented AJAX endpoint so the visitor gets a clear
+    // response instead of a silent page transition or a button that appears stuck.
+    event.preventDefault();
+    if(!bookingForm.reportValidity()) return;
+    if(submitButton && submitButton.disabled) return;
+
+    const sendingText=languageIsEnglish?'Sending your request…':'Envoi de votre demande…';
+    if(submitButton){
+      submitButton.disabled=true;
+      submitButton.textContent=sendingText;
+    }
+    showFormStatus('sending',sendingText);
+
+    try{
+      const payload={};
+      new FormData(bookingForm).forEach((value,key)=>{
+        if(typeof value==='string') payload[key]=value;
+      });
+
+      const response=await fetch('https://formsubmit.co/ajax/leaetartemius@gmail.com',{
+        method:'POST',
+        headers:{
+          'Content-Type':'application/json',
+          'Accept':'application/json'
+        },
+        body:JSON.stringify(payload)
+      });
+      const result=await response.json().catch(()=>null);
+      const success=result && String(result.success).toLowerCase()==='true';
+
+      if(!response.ok || !success){
+        const detail=result && typeof result.message==='string' ? result.message : '';
+        const activationNeeded=/activat/i.test(detail);
+        const message=activationNeeded
+          ? (languageIsEnglish
+              ? 'FormSubmit needs to be activated first. It has sent an activation email to the receiving address. Open that email and click “Activate Form”; submissions will be delivered after activation.'
+              : 'FormSubmit doit d’abord être activé. Un e-mail d’activation a été envoyé à l’adresse de réception. Ouvre cet e-mail et clique sur « Activate Form » ; les demandes seront ensuite transmises.')
+          : (detail || (languageIsEnglish
+              ? 'Your request could not be sent. Please try again or use the direct email button below.'
+              : 'Votre demande n’a pas pu être envoyée. Réessaie ou utilise le bouton e-mail direct ci-dessous.'));
+        showFormStatus('error',message);
+        return;
+      }
+
+      bookingForm.reset();
+      if(fallbackLink) fallbackLink.href=buildMailto(new FormData(bookingForm));
+      showFormStatus('success',languageIsEnglish
+        ? 'Your request has been sent successfully. Thank you — we will get back to you by email.'
+        : 'Votre demande a bien été envoyée. Merci ! Nous vous répondrons par e-mail.');
+    }catch(error){
+      console.error('Booking form submission failed:',error);
+      showFormStatus('error',languageIsEnglish
+        ? 'A network error prevented the request from being sent. Please try again or use the direct email button below.'
+        : 'Une erreur de connexion a empêché l’envoi. Réessaie ou utilise le bouton e-mail direct ci-dessous.');
+    }finally{
+      if(submitButton){
+        submitButton.disabled=false;
+        submitButton.textContent=originalButtonText;
+      }
+    }
+  });
+
+  bookingForm.addEventListener('input',()=>{
+    if(fallbackLink) fallbackLink.href=buildMailto(new FormData(bookingForm));
+  });
 }
 
 const excerptToggle=document.querySelector('.source-excerpt-toggle');
