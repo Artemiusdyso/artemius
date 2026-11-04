@@ -9,7 +9,7 @@
   <meta property="og:description" content="A musical event designed around your venue, audience and atmosphere.">
   <meta property="og:type" content="website">
   <link rel="canonical" href="https://artemiusdyso.github.io/artemius/booking-en.html"><link rel="alternate" hreflang="fr" href="https://artemiusdyso.github.io/artemius/booking.html"><link rel="alternate" hreflang="en" href="https://artemiusdyso.github.io/artemius/booking-en.html"><link rel="alternate" hreflang="x-default" href="https://artemiusdyso.github.io/artemius/booking.html">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=20261104-submit">
 </head>
 <body>
 <nav class="nav">
@@ -41,7 +41,7 @@
     <div class="card reveal">
       <div class="eyebrow">Your project</div>
       <h2 style="font-size:2.2rem">Tell us about your event</h2>
-      <form class="form" id="booking-form" action="https://formsubmit.co/leaetartemius@gmail.com" method="POST">
+      <form class="form" id="booking-form" action="https://formsubmit.co/leaetartemius@gmail.com" method="POST" target="_blank">
         <input type="hidden" name="_subject" value="New booking request — Lea & Artemius">
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_template" value="table">
@@ -55,7 +55,7 @@
         <label>Date / period<input name="date" placeholder="e.g. October 2026"></label>
         <label>City / venue<input name="lieu" placeholder="City, venue or type of location"></label>
         <label>Your project<textarea required name="message" placeholder="Desired atmosphere, number of guests, duration, indicative budget..."></textarea></label>
-        <button class="btn btn-primary booking-submit-direct" id="booking-submit" type="submit" formaction="https://formsubmit.co/leaetartemius@gmail.com" formmethod="POST" onclick="return window.forceBookingSubmit(this.form)">Send request →</button>
+        <button class="btn btn-primary booking-submit-direct" id="booking-submit" type="submit" formaction="https://formsubmit.co/leaetartemius@gmail.com" formmethod="POST">Send request →</button>
         <div id="form-status" class="form-status" role="status" aria-live="polite"></div>
         <p class="fine">The message is sent to <strong>leaetartemius@gmail.com</strong>. If the form has not yet been activated, the first submission will trigger a FormSubmit confirmation email.</p>
       </form>
@@ -65,23 +65,5 @@
 </section>
 </main>
 <footer class="footer"><div class="container footer-inner"><div>© <span data-year></span> Lea & Artemius</div><div class="social"><a href="mailto:leaetartemius@gmail.com">leaetartemius@gmail.com</a></div></div></footer>
-<script>
-window.forceBookingSubmit = function(form) {
-  if (!form || !form.reportValidity()) return false;
-  var button = form.querySelector("#booking-submit");
-  var status = form.querySelector("#form-status");
-  var english = document.documentElement.lang === "en";
-  if (button) {
-    button.disabled = true;
-    button.textContent = english ? "Sending…" : "Envoi en cours…";
-  }
-  if (status) {
-    status.className = "form-status show sending";
-    status.textContent = english ? "Submitting directly to FormSubmit…" : "Envoi direct à FormSubmit…";
-  }
-  HTMLFormElement.prototype.submit.call(form);
-  return false;
-};
-</script>
-<script src="script.js?v=20261104-restore2"></script>
+<script src="script.js?v=20261104-restore3"></script>
 </body></html>
