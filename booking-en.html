@@ -9,7 +9,7 @@
   <meta property="og:description" content="A musical event designed around your venue, audience and atmosphere.">
   <meta property="og:type" content="website">
   <link rel="canonical" href="https://artemiusdyso.github.io/artemius/booking-en.html"><link rel="alternate" hreflang="fr" href="https://artemiusdyso.github.io/artemius/booking.html"><link rel="alternate" hreflang="en" href="https://artemiusdyso.github.io/artemius/booking-en.html"><link rel="alternate" hreflang="x-default" href="https://artemiusdyso.github.io/artemius/booking.html">
-  <link rel="stylesheet" href="styles.css?v=20261104-native">
+  <link rel="stylesheet" href="styles.css?v=20261104-inputsubmit">
 </head>
 <body>
 <nav class="nav">
@@ -28,7 +28,7 @@
 <main>
 <section class="section" style="padding-top:120px">
   <div class="container booking-grid">
-    <div class="booking-copy reveal">
+    <div class="booking-copy">
       <div class="kicker">Booking & events</div>
       <h1>Let's create an event that feels like you.</h1>
       <p class="lead">Club, private party, gallery, launch, concept store, corporate event or something entirely different: we shape a musical proposal around the venue, the audience and the energy you want to create.</p>
@@ -38,7 +38,7 @@
         <div class="feature"><i>✓</i><span><strong>Simple.</strong> You give us the context; we build a coherent proposal around it.</span></div>
       </div>
     </div>
-    <div class="card reveal">
+    <div class="card booking-form-card">
       <div class="eyebrow">Your project</div>
       <h2 style="font-size:2.2rem">Tell us about your event</h2>
       <form class="form" id="booking-form" action="https://formsubmit.co/leaetartemius@gmail.com" method="POST">
@@ -55,7 +55,7 @@
         <label>Date / period<input name="date" placeholder="e.g. October 2026"></label>
         <label>City / venue<input name="lieu" placeholder="City, venue or type of location"></label>
         <label>Your project<textarea required name="message" placeholder="Desired atmosphere, number of guests, duration, indicative budget..."></textarea></label>
-        <button class="btn btn-primary" id="booking-submit" type="submit">Send request →</button>
+        <input class="btn btn-primary booking-submit-input" id="booking-submit" type="submit" value="Send request →">
         <div id="form-status" class="form-status" role="status" aria-live="polite"></div>
         <p class="fine">The message is sent to <strong>leaetartemius@gmail.com</strong>. If the form has not yet been activated, the first submission will trigger a FormSubmit confirmation email.</p>
       </form>
