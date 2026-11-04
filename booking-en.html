@@ -55,7 +55,7 @@
         <label>Date / period<input name="date" placeholder="e.g. October 2026"></label>
         <label>City / venue<input name="lieu" placeholder="City, venue or type of location"></label>
         <label>Your project<textarea required name="message" placeholder="Desired atmosphere, number of guests, duration, indicative budget..."></textarea></label>
-        <button class="btn btn-primary booking-submit-direct" id="booking-submit" type="button" form="booking-form" onclick="if(document.forms[0].reportValidity()) HTMLFormElement.prototype.submit.call(document.forms[0])">Send request →</button>
+        <button class="btn btn-primary booking-submit-direct" id="booking-submit" type="button" form="booking-form" onclick="if(this.form && this.form.reportValidity()) HTMLFormElement.prototype.submit.call(this.form)">Send request →</button>
         <div id="form-status" class="form-status" role="status" aria-live="polite"></div>
         <p class="fine">The message is sent to <strong>leaetartemius@gmail.com</strong>. If the form has not yet been activated, the first submission will trigger a FormSubmit confirmation email.</p>
       </form>
