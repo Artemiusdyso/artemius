@@ -41,12 +41,10 @@
     <div class="card reveal">
       <div class="eyebrow">Your project</div>
       <h2 style="font-size:2.2rem">Tell us about your event</h2>
-      <form class="form" id="booking-form" action="https://formsubmit.co/leaetartemius@gmail.com" method="POST">
-        <input type="hidden" name="_subject" value="New booking request — Lea & Artemius">
-        <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_url" value="https://artemiusdyso.github.io/artemius/booking-en.html">
-        <input type="hidden" name="_next" value="https://artemiusdyso.github.io/artemius/thanks-en.html">
-        <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="display:none">
+      <form class="form" id="booking-form" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="c73a739e-5b30-4117-85cb-0c87f205187f">
+        <input type="hidden" name="subject" value="New booking request — Lea & Artemius">
+        <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none;">
         <label>Name / organisation<input required name="nom" autocomplete="name" placeholder="Your name or organisation"></label>
         <label>Email<input required type="email" name="email" autocomplete="email" placeholder="you@example.com"></label>
         <label>Phone<input type="tel" name="telephone" autocomplete="tel" placeholder="+32 ..."></label>
@@ -56,7 +54,7 @@
         <label>Your project<textarea required name="message" placeholder="Desired atmosphere, number of guests, duration, indicative budget..."></textarea></label>
         <button class="btn btn-primary" id="booking-submit" type="submit">Send request →</button>
         <div id="form-status" class="form-status" role="status" aria-live="polite"></div>
-        <p class="fine">The message is sent to <strong>leaetartemius@gmail.com</strong>. If the form has not yet been activated, the first submission will trigger a FormSubmit confirmation email.</p>
+        <p class="fine">Your request will be sent directly to <strong>leaetartemius@gmail.com</strong>.</p>
       </form>
       <div class="cta"><a class="btn btn-secondary" id="email-fallback" href="mailto:leaetartemius@gmail.com?subject=Booking%20request%20Lea%20%26%20Artemius">Write directly by email</a></div>
     </div>

@@ -8,14 +8,65 @@ document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 const bookingForm=document.querySelector('#booking-form');
 if(bookingForm){
   const fallbackLink=document.querySelector('#email-fallback');
+  const statusBox=bookingForm.querySelector('#form-status');
+  const submitButton=bookingForm.querySelector('#booking-submit');
+  const en=document.documentElement.lang==='en';
+  const originalButtonText=submitButton?.textContent||'';
   const buildMailto=(data)=>{
-    const en=document.documentElement.lang==='en';
     const subject=en?`Booking request — ${data.get('nom')||'Lea & Artemius'}`:`Demande de booking — ${data.get('nom')||'Lea & Artemius'}`;
     const body=en?[`Name / organisation: ${data.get('nom')||''}`,`Email: ${data.get('email')||''}`,`Phone: ${data.get('telephone')||''}`,`Event type: ${data.get('type')||''}`,`Date / period: ${data.get('date')||''}`,`City / venue: ${data.get('lieu')||''}`,'','Project:',data.get('message')||'']:[`Nom / organisation : ${data.get('nom')||''}`,`Email : ${data.get('email')||''}`,`Téléphone : ${data.get('telephone')||''}`,`Type d'événement : ${data.get('type')||''}`,`Date / période : ${data.get('date')||''}`,`Ville / lieu : ${data.get('lieu')||''}`,'','Projet :',data.get('message')||''];
-    const bodyText=body.join('\n');
-    return `mailto:leaetartemius@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
+    return `mailto:leaetartemius@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body.join('\\n'))}`;
   };
-  bookingForm.addEventListener('input',()=>{fallbackLink.href=buildMailto(new FormData(bookingForm));});
+  const showStatus=(state,message)=>{
+    if(!statusBox) return;
+    statusBox.className=`form-status show ${state}`;
+    statusBox.textContent=message;
+  };
+  bookingForm.addEventListener('input',()=>{
+    if(fallbackLink) fallbackLink.href=buildMailto(new FormData(bookingForm));
+  });
+  bookingForm.addEventListener('submit',async(event)=>{
+    event.preventDefault();
+    if(submitButton?.disabled) return;
+    if(submitButton){
+      submitButton.disabled=true;
+      submitButton.textContent=en?'Sending…':'Envoi en cours…';
+    }
+    showStatus('sending',en?'Sending your request securely…':'Envoi sécurisé de votre demande en cours…');
+    const controller=new AbortController();
+    const timeoutId=setTimeout(()=>controller.abort(),20000);
+    try{
+      const payload=Object.fromEntries(new FormData(bookingForm).entries());
+      const response=await fetch('https://api.web3forms.com/submit',{
+        method:'POST',
+        headers:{'Content-Type':'application/json','Accept':'application/json'},
+        body:JSON.stringify(payload),
+        signal:controller.signal
+      });
+      let result={};
+      try{result=await response.json();}catch(_error){}
+      if(!response.ok||result.success!==true){
+        const message=result.message||(en?'The email service rejected the request. Please try again.':'Le service d’envoi a refusé la demande. Réessayez.');
+        throw new Error(message);
+      }
+      showStatus('success',en?'Your request has been sent successfully. Thank you!':'Votre demande a bien été envoyée. Merci !');
+      bookingForm.reset();
+      if(fallbackLink) fallbackLink.href='mailto:leaetartemius@gmail.com';
+      if(submitButton) submitButton.textContent=en?'Request sent ✓':'Demande envoyée ✓';
+      setTimeout(()=>{window.location.href=en?'thanks-en.html':'merci.html';},1400);
+    }catch(error){
+      const message=error.name==='AbortError'
+        ?(en?'The request timed out. Please check your connection and try again.':'Le délai d’envoi est dépassé. Vérifiez votre connexion et réessayez.')
+        :(error.message||(en?'Unable to send your request. Please try again.':'Impossible d’envoyer votre demande. Réessayez.'));
+      showStatus('error',message);
+      if(submitButton){
+        submitButton.disabled=false;
+        submitButton.textContent=originalButtonText;
+      }
+    }finally{
+      clearTimeout(timeoutId);
+    }
+  });
 }
 
 const excerptToggle=document.querySelector('.source-excerpt-toggle');
